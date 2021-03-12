@@ -1,4 +1,4 @@
-<form  class="w-full pt-2 space-y-1">
+<form  class="w-full pt-2 space-y-1" [formGroup]="formDate" (ngSubmit)="search()" >
   <!-- fecha emision -->
   <div class="w-full md:mb-2">
     <label class="text-xs font-medium text-gray-800" > Fecha Inicio</label>
@@ -18,7 +18,7 @@
   </div>
 
 
-  <!-- fecha emision -->
+  <!-- fecha fin -->
   <div class="w-full md:mb-2">
     <label class="text-xs font-medium text-gray-800" for=""> Fecha Fin</label>
     <div class="flex w-full px-2 border border-gray-300 rounded ">
@@ -38,7 +38,14 @@
 
   <!-- boton de  aplicar -->
   <div class="flex items-center justify-center space-x-2 pt-4" >
-    <button  class="rounded-3xl text-xs  py-2 focus:outline-none font-medium btn   w-full border  text-red-600 transition duration-500 ease-in">   Cancelar </button>
-    <button matDialogClose class="rounded-3xl text-xs py-2 focus:outline-none font-medium  text-white  w-full bg-red-600 hover:bg-red-700 transition duration-500 ease-in">   Aplicar </button>
+    
+    <button matDialogClose class="rounded-3xl text-xs  py-2 focus:outline-none font-medium btn   w-full border  text-red-600 transition duration-500 ease-in">   
+      Cancelar 
+    </button>
+    
+    <button type="submit" class="rounded-3xl text-xs py-2 focus:outline-none font-medium  text-white  w-full bg-red-600 hover:bg-red-700 transition duration-500 ease-in">   
+      Aplicar 
+    </button>
+
   </div>
 </form>
