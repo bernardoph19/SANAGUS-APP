@@ -1,0 +1,47 @@
+
+.success{
+  background: #D9002F;
+  padding: 2px;
+  border-radius: 75px;
+  color: white;
+}
+
+
+.success:hover{
+  background:#ee0c3d;
+}
+
+.success:focus{
+  outline: none;
+}
+
+.my-custom-class{
+  font-size: 13px;
+  font-weight: 400px;
+  color: black;
+  border-bottom: black;
+}
+
+.ion-tab-button{
+  color: green;
+  background: red;
+}
+
+
+
+
+.my-custom-class {
+  --background:red;
+  color: #D9002F;
+
+}
+
+/* DOES NOT WORK - not specific enough */
+.alert-wrapper {
+  background: #e5e5e5;
+}
+
+/* Works - pass "my-custom-class" in cssClass to increase specificity */
+.my-custom-class .alert-wrapper {
+  background: #e5e5e5;
+}

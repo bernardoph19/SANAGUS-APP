@@ -1,4 +1,4 @@
-<ion-header [translucent]="true">
+<!-- <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>
       Blank
@@ -18,4 +18,61 @@
     <strong>Ready to create an app?</strong>
     <p class="bg-darken-3 text-red-600 text-xl font-medium">Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
   </div>
+</ion-content> -->
+
+
+<ion-header class="w-full sticky top-0 bg-gray-50">
+  <div class="flex items-center mt-4 px-1">
+    <img class="w-10 h-10" src="assets/img/users.png" alt="">
+    <!-- <ion-searchbar animated></ion-searchbar> -->
+    <!-- <ion-searchbar debounce="500"  placeholder="Buscar.."></ion-searchbar> -->
+    <ion-searchbar  class="text-xs" placeholder="Buscar..." animated></ion-searchbar>
+  </div>
+  <div class="flex justify-between w-full items-center px-2 py-1">
+    <p class="text-sm font-medium text-gray-900">Listado</p>
+    <p class="text-sm font-medium text-gray-900">2</p>
+  </div>
+</ion-header>
+
+
+<ion-content [fullscreen]="true">
+  <main class="px-2 pt-2">
+
+    <section *ngFor="let item of listaPedido" class="border-b border-gray-200 py-1">
+
+      <div class="flex items-center justify-between">
+
+        <span class="flex items-center justify-start">
+          <ion-icon class="text-red-500 w-4 h-4" name="calendar-outline"></ion-icon>
+          <p class="text-red-500 text-xs font-medium pl-1"> {{ item.Fecha }}</p>
+        </span>
+
+        <span class="flex items-center justify-end">
+          <button type="button" class="btn w-full h-9 cursor-pointer font-medium px-6 text-xs" (click)="actulziarPedido( item.IDVenta ) " >Entregado</button>
+        </span>
+
+      </div>
+
+      <div class="w-full">
+        <p class="text-xs font-medium text-gray-800">{{ item.Cliente }}</p>
+        <p class="text-xs text-left text-gray-500">{{ item.Telefono }}</p>
+        <p class="text-xs text-gray-400">{{ item.DireccionEnvio }}</p>
+      </div>
+    </section>
+
+       <!-- No hay ningun pendiente -->
+       <div class="flex flex-col items-center pt-20 content-center  justify-center">
+        <img src="assets/img/pendientes.svg" alt="">
+          <p class="text-sm font-medium leading-normal w-full  text-center text-gray-600">No hay ningún pendiente</p>
+          <p class="text-xs leading-3 text-center w-full text-gray-500">Al parecer no se le asigno pedidos</p>
+      </div>
+  </main>
 </ion-content>
+
+
+
+
+
+
+
+

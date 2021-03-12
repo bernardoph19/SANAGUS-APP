@@ -25,3 +25,25 @@
 #container a {
   text-decoration: none;
 }
+
+// focus
+.focus:focus{
+  outline: none;
+  box-shadow: 0 0 3px #0281f8;
+  border-color: #0281f8;
+}
+
+.btn{
+  background: #FEC008;
+  padding: 1px 12px;
+  border-radius: 55px;
+  color: black;
+}
+.btn:hover{
+  background:#fdc828;
+}
+
+.btn:focus{
+  outline: none;
+}
+

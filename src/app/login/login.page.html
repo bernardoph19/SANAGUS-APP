@@ -1,0 +1,84 @@
+<header  class="w-full rounded-b-3xl h-56 flex items-center flex-col justify-center" style="background: linear-gradient(180deg, #8FAF00 0%, #008100 100%);">
+  <img class="h-28 object-cover" src="assets/img/logotipo.png" alt="">
+  <h1 class="text-white text-4xl bienvenido uppercase font-normal pt-4">BIENVENIDO </h1>
+</header>
+
+
+
+<ion-content>
+  <!-- (formulario inicio sesión)--> <!-- usuario, password -->
+  <form class="mt-8 bg-white space-y-3 px-3" [formGroup]="formSesion" (ngSubmit)="login()">
+
+    <!-- correo -->
+    <div class="w-full">
+        <label class="text-sm font-medium text-gray-900 pb-1" for="correo">Usuario</label>
+
+        <div class="relative">
+            <div class="inline-flex items-center justify-center absolute left-0 top-0 h-full w-10 text-gray-400 ">
+              <ion-icon class="w-6 h-6 text-gray-400 stroke-2 fill-current" name="person-circle-outline"></ion-icon>
+            </div>
+
+            <!-- #usuario -->
+            <!-- name="correo" -->
+            <input formControlName="usuario"
+                  id="usuario"
+                  type="text"
+                  required
+                  [class.error]="userNovalido"
+                  class="text-sm sm:text-base bg-gray-50  pl-10 pr-4 font-normal  focus  rounded-lg border border-gray-200  w-full py-2 focus:outline-none"
+                  placeholder="Ingrese usuario"/>
+
+
+            <!-- validacion exito  ------clases=" success"-->                         
+            <div  class="inline-flex items-center  justify-center absolute right-0 top-0 h-full w-10 text-gray-400">
+              <ion-icon *ngIf="!userNovalido" class="w-5 h-5 color-icons" name="checkmark-circle-outline"></ion-icon>
+              <ion-icon *ngIf="userNovalido" class="w-5 h-5 text-red-500" name="close-circle-outline"></ion-icon>
+            </div>
+        </div>
+        <small *ngIf="userNovalido" class="flex items-center animated fadeIn font-medium tracking-wide text-red-500 text-xs mt-1 ml-1"> Campo de usuario inválido. </small>
+
+    </div>
+
+    <!-- contraseña -->
+    <div class="w-full">
+
+      <label class="text-sm font-medium text-gray-900 pb-1" for="password">Contraseña</label>
+        <div class="relative">
+            <div class="inline-flex items-center justify-center absolute left-0 top-0 h-full w-10 text-gray-400 ">
+              <ion-icon class="w-6 h-6 text-gray-400 stroke-2 fill-current" name="lock-closed-outline"></ion-icon>
+            </div>
+
+            <!-- #password // en el class success-->
+            <input  formControlName="password"
+                  id="password"
+                  type="password"
+                  [class.error]="passNovalido"
+                  required
+                  class="text-sm bg-gray-50  pl-10 pr-4 font-normal focus  rounded-lg border border-gray-200  w-full py-2 focus"
+                  placeholder="*******" />
+
+            <!-- validacion exito  ------clases=" success"-->
+            <div class="inline-flex items-center  justify-center absolute right-0 top-0 h-full w-10 text-gray-400">
+              <ion-icon  *ngIf="!passNovalido"  class="w-5 h-5  color-icons" name="checkmark-circle-outline"></ion-icon>
+              <ion-icon  *ngIf="passNovalido"  class="w-5 h-5 text-red-500" name="close-circle-outline"></ion-icon>
+            </div>
+
+          </div>
+          <small *ngIf="passNovalido" class="flex items-center animated fadeIn font-medium tracking-wide text-red-500 text-xs mt-1 ml-1"> Campo de password inválido. </small>
+    </div>
+
+
+
+
+    <!-- boton de iniciar sesion -->
+    <div class="w-full pt-4">
+      <button class="btn w-full h-10 px-4 font-medium" type="submit" >Iniciar Sesión</button>
+    </div>
+
+  </form>
+  <!-- <div class="w-full pt-4">
+    <ion-button class="btn w-full h-10 px-4 font-medium" type="button" (click)="presentToast()">Iniciar Sesión</ion-button>
+
+  </div> -->
+
+</ion-content>

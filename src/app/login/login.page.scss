@@ -1,0 +1,48 @@
+.toast{
+  background: brown;
+  color: white;
+  }
+
+
+.bienvenido{
+  font-family: 'Amatic SC', cursive;
+  line-height: 83,05px;
+}
+
+// clase de  error
+.error {
+  box-shadow: 0 0 3px #d45252;
+  border-color: #e74c3c
+}
+
+// clase de exito
+.success {
+  box-shadow: 0 0 3px #10B759;
+  border-color: #2ecc71;
+}
+
+// focus
+.focus:focus{
+  outline: none;
+  box-shadow: 0 0 1px #10B759;
+  border-color: #2ecc71;
+}
+
+.color-icons{
+  color: #10B759;
+}
+
+.btn{
+  background: #D9002F;
+  padding: 2px;
+  border-radius: 75px;
+  color: white;
+}
+.btn:hover{
+  background:#ee0c3d;
+}
+.btn:focus{
+  outline: none;
+  
+}
+
