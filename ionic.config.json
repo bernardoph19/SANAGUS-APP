@@ -1,0 +1,7 @@
+{
+  "name": "SANAGUSAPP",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
