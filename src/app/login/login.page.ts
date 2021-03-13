@@ -23,8 +23,7 @@ export class LoginPage implements OnInit {
   userLogueado : any;
 
   constructor(
-
-    public loadingController: LoadingController,
+    
     private loginService: LoginserviceService,
     private formBuilder: FormBuilder,
     private svalidator: ValidadoresService,
@@ -69,6 +68,7 @@ export class LoginPage implements OnInit {
     };
 
     let call = this.loginService.postInicioSesion( body );
+    
       from(call).pipe(
         finalize( () => loading.dismiss() )
       )

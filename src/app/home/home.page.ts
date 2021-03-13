@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { FiltrarFechaPage } from '../filtrar-fecha/filtrar-fecha.page';
-import { LoginserviceService } from 'src/app/services/loginservice.service';
-import { Pedido } from './../models/user.model';
-
-import { AlertController } from '@ionic/angular';
+import { AlertController, LoadingController } from '@ionic/angular';
 import { finalize } from 'rxjs/operators';
 import { from } from 'rxjs';
+
+import { Pedido } from './../models/user.model';
+import { LoginserviceService } from 'src/app/services/loginservice.service';
+import { ValidadoresService } from 'src/app/login/validationLogin.service';
 
 @Component({
   selector: 'app-home',
@@ -14,40 +14,49 @@ import { from } from 'rxjs';
   styleUrls: ['home.page.scss'],
 })
 export class HomePage  implements OnInit {
+  
   listaPedido : Pedido[];
+  textoBuscar = '';
 
   constructor(
     public modal:MatDialog,
     private loginService: LoginserviceService,
+    private loadingCtrl: LoadingController,
+    private validar: ValidadoresService,
 
   ) {
 
   }
 
-  filtar(){
-    this.modal.open(FiltrarFechaPage);
-  }
-
-
+ 
   ngOnInit() : void {
     this.loadListPedido();
   }
 
-  loadListPedido() {
+  async loadListPedido() {
+
+    let loading = await this.loadingCtrl.create();
+    await loading.present();
+
     const userlogueado = JSON.parse(localStorage.getItem('userLogueado'));
     const rep = {
       'idusuario' : userlogueado.id
     };
 
-    this.loginService.listarPendientesToday(rep)
-    .subscribe( (r : any) => {
+    let callAPI = this.loginService.listarPendientesToday(rep);
 
-      if( r.message === "exito" ){
+        from(callAPI).pipe(
+          finalize( () => loading.dismiss() )
+        )
 
-        this.listaPedido  = r.result;
-      }
+        .subscribe( (r : any) => {
 
-    });
+          if( r.message === "exito" ){
+
+            this.listaPedido  = r.result;
+          }
+
+        });
   }
 
   actulziarPedido(id:string) {
@@ -70,4 +79,12 @@ export class HomePage  implements OnInit {
 
   }
 
+  get noData(){
+    return this.validar.sinResultado(this.listaPedido);
+  }
+
+  buscar( event : any ) {
+    //console.log(event.detail.value);
+    this.textoBuscar = event.detail.value;
+  }
 }

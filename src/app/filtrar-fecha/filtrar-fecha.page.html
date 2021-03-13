@@ -8,11 +8,13 @@
   <div class="w-full md:mb-2">
     <label class="text-sm font-medium text-gray-800" > Fecha Inicio</label>
     <div class="flex w-full px-2 border border-gray-300 rounded-md ">
-        <input class="w-full px-2 py-2 text-sm placeholder-gray-500 focus:outline-none"
-            name="fechaemision"
-            placeholder="17/10/2021"
+        <input class="w-full px-2 py-2 text-sm placeholder-gray-500 focus:outline-none"            
+            placeholder="MM/DD/YYYY"
+            name="fechaInicio"
             [matDatepicker]="fechaemision"
-            required >
+            required 
+            formControlName="fechaInicio"
+        >
         <mat-datepicker #fechaemision> </mat-datepicker>
         <button type="button" (click)="fechaemision.open()"
             class="flex items-center justify-center w-10 p-1 transition duration-300 ease-in border-white rounded-full cursor-pointer focus:outline-none focus:text-green-400 h-9 hover:border-green-500 hover:bg-gray-200 focus:bg-gray-200">
@@ -27,10 +29,12 @@
     <label class="text-sm font-medium text-gray-800" for=""> Fecha Fin</label>
     <div class="flex w-full px-2 border border-gray-300 rounded-md ">
         <input class="w-full px-2 py-2 text-xs placeholder-gray-500 focus:outline-none"
-            name="fechafin"
-            placeholder="17/10/2021"
+            placeholder="MM/DD/YYYY"
+            name="fechaFinal"
             [matDatepicker]="fechafin"
-            required >
+            required 
+            formControlName="fechaFinal"
+        >
         <mat-datepicker #fechafin> </mat-datepicker>
         <button type="button" (click)="fechafin.open()"
             class="flex items-center justify-center w-10 p-1 transition duration-300 ease-in border-white rounded-full cursor-pointer focus:outline-none focus:text-green-400 h-9 hover:border-green-500 hover:bg-gray-200 focus:bg-gray-200">

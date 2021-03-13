@@ -6,15 +6,16 @@ import { TabsPage } from './tabs.page';
 
 const routes: Routes = [
 
-{path: '',   redirectTo:'pendientes',},
+  { path: '',   redirectTo:'pendientes', },
 
-{ path: '', component: TabsPage,
+  { path: '', 
+    component: TabsPage,
 
     children:[
 
-      {path: 'pendientes', loadChildren: () => import('../home/home.module').then(m => m.HomePageModule)},
+        {path: 'pendientes', loadChildren: () => import('../home/home.module').then(m => m.HomePageModule)},
 
-      {path: 'historial', loadChildren:() => import ('../historial/historial.module').then(m => m.HistorialPageModule)},
+        {path: 'historial', loadChildren:() => import ('../historial/historial.module').then(m => m.HistorialPageModule)},
 
     ]
   }

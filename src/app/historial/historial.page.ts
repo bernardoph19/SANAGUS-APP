@@ -3,7 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { AlertController } from '@ionic/angular';
 import { LoginserviceService } from 'src/app/services/loginservice.service'; 
 import { FiltrarFechaPage } from '../filtrar-fecha/filtrar-fecha.page';
-
+import { ValidadoresService } from 'src/app/login/validationLogin.service';
 
 @Component({
   selector: 'app-historial',
@@ -13,6 +13,7 @@ import { FiltrarFechaPage } from '../filtrar-fecha/filtrar-fecha.page';
 export class HistorialPage implements OnInit {
 
   listaPedidoAtendido : any[];  
+  textoBuscar = ''; 
   
   /* customPickerOptions: any;
   customDate; */
@@ -22,7 +23,8 @@ export class HistorialPage implements OnInit {
   constructor( 
     public modal : MatDialog,
     public alertController: AlertController,
-    private loginService: LoginserviceService,         
+    private loginService: LoginserviceService,   
+    private validar: ValidadoresService,      
 
   ) { 
 
@@ -118,14 +120,14 @@ export class HistorialPage implements OnInit {
   } */
 
 
-  loadListPedidoAtendido() {
+  loadListPedidoAtendido(fechaInicio: string , fechaFinal : string) {
         
     const userlogueado = JSON.parse(localStorage.getItem('userLogueado'));
     
     const body = {
       'idusuario'   : userlogueado.id,
-      'fechainicio' : "2021/03/11",
-      'fechafin'    : "2021/03/11",
+      'fechainicio' : fechaInicio,
+      'fechafin'    : fechaFinal,
     };
     
 
@@ -140,19 +142,37 @@ export class HistorialPage implements OnInit {
     });
   }
 
-  seleccionaFechaInicio(event) {
+  seleccionaFechaInicio(event : any) {
     console.log('ionChange', event)
     console.log('Date', new Date (event.detail.value ))
 
   }
 
-  filtar(){
-    this.modal.open(FiltrarFechaPage);
+  seleccionarFechas(){
+
+    this.modal.open( FiltrarFechaPage, { 
+
+    })
+    .afterClosed()
+    .subscribe( response => {
+      //this.loadListPedidoAtendido( response.fInicio, response.fFinal )
+      console.log(response);
+      this.listaPedidoAtendido = response; 
+    } );
+    
   }
 
 
   ngOnInit() {
-    this.loadListPedidoAtendido();
+    //this.loadListPedidoAtendido();
   }
 
+  get noData(){
+    return this.validar.sinResultado(this.listaPedidoAtendido);
+  }
+
+  buscar( event : any ) {
+    //console.log(event.detail.value);
+    this.textoBuscar = event.detail.value;
+  }
 }

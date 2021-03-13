@@ -6,6 +6,7 @@ import { HomePage } from './home.page';
 
 import { HomePageRoutingModule } from './home-routing.module';
 import { DemoMaterialModule } from '../material';
+import { PipesModule } from '../pipes/pipes.module';
 
 
 @NgModule({
@@ -14,7 +15,8 @@ import { DemoMaterialModule } from '../material';
     FormsModule,
     IonicModule,
     HomePageRoutingModule,
-    DemoMaterialModule
+    DemoMaterialModule,
+    PipesModule
   ],
   declarations: [HomePage]
 })

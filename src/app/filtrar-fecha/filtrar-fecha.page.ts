@@ -2,10 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { LoginserviceService } from 'src/app/services/loginservice.service';
 import { ValidadoresService } from 'src/app/login/validationLogin.service';
-
+import { MatDialogRef } from '@angular/material/dialog';
 import { finalize } from 'rxjs/operators';
 import { from } from 'rxjs';
 import { FechaValidarService } from '../services/fecha-validar.service';
+import { HistorialPage } from '../historial/historial.page';
+import { LoadingController } from '@ionic/angular';
 
 @Component({
   selector: 'app-filtrar-fecha',
@@ -14,22 +16,25 @@ import { FechaValidarService } from '../services/fecha-validar.service';
 })
 export class FiltrarFechaPage implements OnInit {
   
-  formFecha          : FormGroup;
+  formDate          : FormGroup;
 
   constructor(
     private fb           : FormBuilder,
-    private validarFecha      : FechaValidarService,
+    private validarFecha : FechaValidarService,
     private loginService : LoginserviceService,
     private validators   : ValidadoresService,
+    public  dialogRef    : MatDialogRef<HistorialPage>,
+    private loadingCtrl  : LoadingController,
 
-  ) { 
-    const fechaActual = this.validarFecha.fechaActual();
+  ) {  this.createForm();
+    //const fechaActual = this.validarFecha.fechaActual();
+    //this.listPedidosAtendidos(fechaActual, fechaActual);
   }
 
   createForm(){
-    this.formFecha = this.fb.group({
-      fechaemision : [ new Date(), Validators.required ],
-      fechafin    : [ new Date(), Validators.required ]
+    this.formDate = this.fb.group({
+      fechaInicio : [ new Date(), Validators.required ],
+      fechaFinal  : [ new Date(), Validators.required ]
     });
   }
 
@@ -37,27 +42,31 @@ export class FiltrarFechaPage implements OnInit {
   }
 
   get fechaEmisionNoVal(){
-    return this.validators.control_invalid('fechaemision', this.formFecha);
+    return this.validators.control_invalid('fechaInicio', this.formDate);
   }
 
   get fechaFinNoVal(){
-    return this.validators.control_invalid('fechafin', this.formFecha);
+    return this.validators.control_invalid('fechaFinal', this.formDate);
   }
 
-  search(){
+  search() {
 
-    if(this.formFecha.invalid){
-      return this.validators.Empty_data(this.formFecha);
+    if(this.formDate.invalid){
+      return this.validators.Empty_data(this.formDate);
     }
 
-    const fechaEmision      = this.validarFecha.convertFecha( this.formFecha.controls.fechaemision.value );
-    const fechaFin          = this.validarFecha.convertFecha( this.formFecha.controls.fechafin.value );    
+    const fechaEmision      = this.validarFecha.convertFecha( this.formDate.controls.fechaInicio.value );
+    const fechaFin          = this.validarFecha.convertFecha( this.formDate.controls.fechaFinal.value );    
 
-    this.listPedidosAtendidos( "0", fechaEmision, fechaFin);
+    this.listPedidosAtendidos( fechaEmision, fechaFin);
 
   }
 
-  listPedidosAtendidos( fechaInicio : string, fechaFin : string, id : string) {
+  async listPedidosAtendidos( fechaInicio : string, fechaFin : string) {
+
+    let loading = await this.loadingCtrl.create();
+    await loading.present();
+
     const userlogueado = JSON.parse(localStorage.getItem('userLogueado'));
 
     const body = {
@@ -66,11 +75,17 @@ export class FiltrarFechaPage implements OnInit {
       fechafin    : fechaFin
     };
 
-    this.loginService.listarPedidosAtendidos( body )
-                .subscribe( (result : any) => {
-                  console.log(result);
-                  
-                }, () => {} )
+    let callAPI =  this.loginService.listarPedidosAtendidos( body );
+
+      from(callAPI).pipe(
+        finalize( () => loading.dismiss() )
+      )
+
+      .subscribe( (result : any) => {
+        
+        this.dialogRef.close( result.result )
+      }, () => {} )
+
   }
 
 }

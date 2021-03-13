@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
+import { PipesModule } from '../pipes/pipes.module';
 /* import { FormsModule } from '@angular/forms'; */
 
 import { IonicModule } from '@ionic/angular';
@@ -17,7 +18,8 @@ import { HistorialPage } from './historial.page';
     ReactiveFormsModule,
     IonicModule,
     HistorialPageRoutingModule,
-    DemoMaterialModule
+    DemoMaterialModule,
+    PipesModule
   ],
   declarations: [HistorialPage]
 })

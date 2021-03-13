@@ -1,17 +1,20 @@
 <ion-header  color ="success" class="w-full sticky top-0 bg-gray-50">
   <div class="flex items-center mt-4 px-1">
     <img class="w-10 h-10" src="assets/img/users.png" alt="">
-    <ion-searchbar class="text-xs placeholder-gray-900" placeholder="Buscar..." animated></ion-searchbar>
+    <ion-searchbar class="text-xs placeholder-gray-900" placeholder="Buscar..." animated
+        (ionChange)="buscar( $event )"
+    >
+    </ion-searchbar>
   </div>
 
 
   <div class="flex justify-between w-full items-center px-2 pt-1">
     <p class="text-sm font-medium text-gray-900">Atendidos</p>
     <div class="flex items-center justify-items-end">
-      <p class="text-sm font-medium text-gray-900 pl-2">8</p>
+      <p class="text-sm font-medium text-gray-900 pl-2"> {{ (listaPedidoAtendido == undefined)  ? 0 : listaPedidoAtendido.length}} </p>
 
         <!-- (click)="abrirModal()"  -->
-          <button class="p-2 focus:outline-none hover:bg-gray-200 h-8  rounded-full" (click)="filtar()">
+          <button class="p-2 focus:outline-none hover:bg-gray-200 h-8  rounded-full" (click)="seleccionarFechas()">
             <ion-icon class="w-5 h-5" name="funnel"></ion-icon>
           </button>
     </div>
@@ -22,7 +25,7 @@
 <!-- listado -->
 <ion-content>
   <main class="px-2 pt-2">
-    <section class="border-b border-gray-200 py-1" *ngFor="let item of listaPedidoAtendido">
+    <section class="border-b border-gray-200 py-1" *ngFor="let item of listaPedidoAtendido | filtro : textoBuscar: 'Cliente'">
       <div class="flex items-center justify-between">
         <span class="flex items-center justify-start">
           <svg class="w-5 h-5 text-red-600 fill-current" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" focusable="false" width="1em" height="1em" style="-ms-transform: rotate(360deg); -webkit-transform: rotate(360deg); transform: rotate(360deg);" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><path d="M7 11h2v2H7zm0 4h2v2H7zm4-4h2v2h-2zm0 4h2v2h-2zm4-4h2v2h-2zm0 4h2v2h-2z"/><path d="M5 22h14c1.103 0 2-.897 2-2V6c0-1.103-.897-2-2-2h-2V2h-2v2H9V2H7v2H5c-1.103 0-2 .897-2 2v14c0 1.103.897 2 2 2zM19 8l.001 12H5V8h14z" /></svg>
@@ -40,6 +43,12 @@
         <p class="text-xs text-left text-green-700 font-medium">s/ {{ item.Total }}</p>
       </div>
     </section>
+
+    <!-- No hay ningun pendiente -->
+    <div *ngIf="noData==false" class="flex flex-col items-center pt-20 content-center  justify-center">      
+        <p class="text-sm font-medium leading-normal w-full  text-center text-gray-600"></p>
+        <p class="text-xs leading-3 text-center w-full text-gray-500">Al parecer no Tienes Resultados, Elige otras Fechas UwU</p>
+    </div>
   </main>
 
 </ion-content>
