@@ -1,31 +1,8 @@
-<!-- <ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>
-      Blank
-    </ion-title>
-  </ion-toolbar>
-</ion-header>
-
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
-    </ion-toolbar>
-  </ion-header>
-
-<button (click)="filtar()" class="text-red-600 font-medium focus:outline-none py-4 bg-red-600">Filtar</button>
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p class="bg-darken-3 text-red-600 text-xl font-medium">Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
-  </div>
-</ion-content> -->
 
 
 <ion-header class="w-full sticky top-0 bg-gray-50">
   <div class="flex items-center mt-4 px-1">
     <img class="w-10 h-10" src="assets/img/users.png" alt="">
-    <!-- <ion-searchbar animated></ion-searchbar> -->
-    <!-- <ion-searchbar debounce="500"  placeholder="Buscar.."></ion-searchbar> -->
     <ion-searchbar  class="text-xs" placeholder="Buscar..." animated></ion-searchbar>
   </div>
   <div class="flex justify-between w-full items-center px-2 py-1">
@@ -43,7 +20,7 @@
       <div class="flex items-center justify-between">
 
         <span class="flex items-center justify-start">
-          <ion-icon class="text-red-500 w-4 h-4" name="calendar-outline"></ion-icon>
+          <svg class="w-5 h-5 text-red-600 fill-current" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" focusable="false" width="1em" height="1em" style="-ms-transform: rotate(360deg); -webkit-transform: rotate(360deg); transform: rotate(360deg);" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><path d="M7 11h2v2H7zm0 4h2v2H7zm4-4h2v2h-2zm0 4h2v2h-2zm4-4h2v2h-2zm0 4h2v2h-2z"/><path d="M5 22h14c1.103 0 2-.897 2-2V6c0-1.103-.897-2-2-2h-2V2h-2v2H9V2H7v2H5c-1.103 0-2 .897-2 2v14c0 1.103.897 2 2 2zM19 8l.001 12H5V8h14z" /></svg>
           <p class="text-red-500 text-xs font-medium pl-1"> {{ item.Fecha }}</p>
         </span>
 
