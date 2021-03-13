@@ -1,11 +1,16 @@
-<form  class="w-full pt-2 space-y-1" [formGroup]="formDate" (ngSubmit)="search()" >
+ <!-- title de  modal -->
+<ion-header>
+<h1 class="text-sm font-medium text-gray-800">Filtrar </h1>
+</ion-header>
+
+<form  class="w-full pt-3 space-y-1" [formGroup]="formDate" (ngSubmit)="search()" >
   <!-- fecha emision -->
   <div class="w-full md:mb-2">
-    <label class="text-xs font-medium text-gray-800" > Fecha Inicio</label>
-    <div class="flex w-full px-2 border border-gray-300 rounded ">
+    <label class="text-sm font-medium text-gray-800" > Fecha Inicio</label>
+    <div class="flex w-full px-2 border border-gray-300 rounded-md ">
         <input class="w-full px-2 py-2 text-sm placeholder-gray-500 focus:outline-none"
             name="fechaemision"
-            placeholder="17/10/2020"
+            placeholder="17/10/2021"
             [matDatepicker]="fechaemision"
             required >
         <mat-datepicker #fechaemision> </mat-datepicker>
@@ -14,17 +19,16 @@
             <svg class="w-6 h-6 text-red-600 fill-current" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" focusable="false" width="1em" height="1em" style="-ms-transform: rotate(360deg); -webkit-transform: rotate(360deg); transform: rotate(360deg);" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><path d="M7 11h2v2H7zm0 4h2v2H7zm4-4h2v2h-2zm0 4h2v2h-2zm4-4h2v2h-2zm0 4h2v2h-2z"/><path d="M5 22h14c1.103 0 2-.897 2-2V6c0-1.103-.897-2-2-2h-2V2h-2v2H9V2H7v2H5c-1.103 0-2 .897-2 2v14c0 1.103.897 2 2 2zM19 8l.001 12H5V8h14z" /></svg>
         </button>
     </div>
-    <!-- <input type="text" placeholder="21/02/2021" required class="forms-control focus"> -->
   </div>
 
 
   <!-- fecha fin -->
   <div class="w-full md:mb-2">
-    <label class="text-xs font-medium text-gray-800" for=""> Fecha Fin</label>
-    <div class="flex w-full px-2 border border-gray-300 rounded ">
+    <label class="text-sm font-medium text-gray-800" for=""> Fecha Fin</label>
+    <div class="flex w-full px-2 border border-gray-300 rounded-md ">
         <input class="w-full px-2 py-2 text-xs placeholder-gray-500 focus:outline-none"
             name="fechafin"
-            placeholder="17/10/2020"
+            placeholder="17/10/2021"
             [matDatepicker]="fechafin"
             required >
         <mat-datepicker #fechafin> </mat-datepicker>
@@ -38,13 +42,12 @@
 
   <!-- boton de  aplicar -->
   <div class="flex items-center justify-center space-x-2 pt-4" >
-    
-    <button matDialogClose class="rounded-3xl text-xs  py-2 focus:outline-none font-medium btn   w-full border  text-red-600 transition duration-500 ease-in">   
-      Cancelar 
+    <button matDialogClose class="rounded-3xl text-sm py-2 border-2 border-red-600  hover:border-red-600 font-medium w-full bg-red-600 text-white focus:outline-none">
+      Cancelar
     </button>
-    
-    <button type="submit" class="rounded-3xl text-xs py-2 focus:outline-none font-medium  text-white  w-full bg-red-600 hover:bg-red-700 transition duration-500 ease-in">   
-      Aplicar 
+
+    <button type="submit" class="rounded-3xl text-sm py-2 focus:outline-none font-medium  text-white  w-full bg-red-600 hover:bg-red-700 transition duration-500 ease-in">
+      Aplicar
     </button>
 
   </div>

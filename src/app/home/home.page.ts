@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { FiltrarFechaPage } from '../filtrar-fecha/filtrar-fecha.page';
-import { LoginserviceService } from 'src/app/services/loginservice.service'; 
+import { LoginserviceService } from 'src/app/services/loginservice.service';
 import { Pedido } from './../models/user.model';
 
 import { AlertController } from '@ionic/angular';
@@ -17,9 +17,9 @@ export class HomePage  implements OnInit {
   listaPedido : Pedido[];
 
   constructor(
-    public modal:MatDialog,    
-    private loginService: LoginserviceService,     
-    
+    public modal:MatDialog,
+    private loginService: LoginserviceService,
+
   ) {
 
   }
@@ -27,15 +27,14 @@ export class HomePage  implements OnInit {
   filtar(){
     this.modal.open(FiltrarFechaPage);
   }
-  
+
 
   ngOnInit() : void {
-    this.loadListPedido();  
+    this.loadListPedido();
   }
 
   loadListPedido() {
     const userlogueado = JSON.parse(localStorage.getItem('userLogueado'));
-    
     const rep = {
       'idusuario' : userlogueado.id
     };
@@ -44,9 +43,9 @@ export class HomePage  implements OnInit {
     .subscribe( (r : any) => {
 
       if( r.message === "exito" ){
-                
-        this.listaPedido  = r.result;        
-      }            
+
+        this.listaPedido  = r.result;
+      }
 
     });
   }
@@ -61,13 +60,13 @@ export class HomePage  implements OnInit {
     .subscribe( (r : any) => {
 
       if( r.message === "Venta entragada" ){
-                
-        this.loadListPedido();   
-      }            
+
+        this.loadListPedido();
+      }
 
     });
 
-    
+
 
   }
 

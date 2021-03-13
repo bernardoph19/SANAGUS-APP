@@ -1,96 +1,45 @@
 <ion-header  color ="success" class="w-full sticky top-0 bg-gray-50">
   <div class="flex items-center mt-4 px-1">
     <img class="w-10 h-10" src="assets/img/users.png" alt="">
-    <!-- <ion-searchbar animated></ion-searchbar> -->
-    <!-- <ion-searchbar debounce="500"  placeholder="Buscar.."></ion-searchbar> -->
     <ion-searchbar class="text-xs placeholder-gray-900" placeholder="Buscar..." animated></ion-searchbar>
-  </div>    
-   
+  </div>
 
-  <div class="flex justify-between w-full items-center px-2">
+
+  <div class="flex justify-between w-full items-center px-2 pt-1">
     <p class="text-sm font-medium text-gray-900">Atendidos</p>
     <div class="flex items-center justify-items-end">
       <p class="text-sm font-medium text-gray-900 pl-2">8</p>
 
         <!-- (click)="abrirModal()"  -->
-          <button class="p-2 focus:outline-none hover:bg-gray-200 h-8 rounded-full" (click)="filtar()">
-            <ion-icon name="funnel"></ion-icon>
-          </button> 
-      
-      <!-- filtro -->
-      <!-- (click)="modalfiltros()" -->      
-      <!-- <ion-item class="text-sm font-medium">    
-        <ion-icon name="funnel" class="p-2 h-8 rounded-full"></ion-icon> -->
-        
-
-        <!-- value="{{fechaInicio | date: 'dd-mm-yyyy'}}" -->
-        <!-- <ion-datetime 
-                      displayFormat="DD MM YYYY"                               
-                      cancelText="Cancelar"
-                      [ngModel]="fechaInicio.toISOString()"
-                      (ionChange)="seleccionaFechaInicio($event)"
-                      min="2021-01-01"
-                      max="2031-12-31"
-        >
-        </ion-datetime>     -->                 
-                        
-      
-      <!-- </ion-item> -->
-
-
+          <button class="p-2 focus:outline-none hover:bg-gray-200 h-8  rounded-full" (click)="filtar()">
+            <ion-icon class="w-5 h-5" name="funnel"></ion-icon>
+          </button>
     </div>
   </div>
 </ion-header>
 
+
 <!-- listado -->
 <ion-content>
-  <!-- <ion-datetime 
-        displayFormat="DD MM YYYY"                      
-        [pickerOptions]="customPickerOptions"
-        [(ngModel)]="customDate"                      
-        min="2021-01-01"
-        max="2031-12-31"
-      >
-      </ion-datetime>     -->
-
   <main class="px-2 pt-2">
-
-    <section class="border-b border-gray-200 py-1" *ngFor="let item of listaPedidoAtendido">     
+    <section class="border-b border-gray-200 py-1" *ngFor="let item of listaPedidoAtendido">
       <div class="flex items-center justify-between">
-       
         <span class="flex items-center justify-start">
-          <ion-icon class="text-red-500 w-4 h-4" name="calendar-outline"></ion-icon>
-          <p class="text-red-500 text-xs font-medium pl-1"> {{ item.Fecha }} </p>
+          <svg class="w-5 h-5 text-red-600 fill-current" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" focusable="false" width="1em" height="1em" style="-ms-transform: rotate(360deg); -webkit-transform: rotate(360deg); transform: rotate(360deg);" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><path d="M7 11h2v2H7zm0 4h2v2H7zm4-4h2v2h-2zm0 4h2v2h-2zm4-4h2v2h-2zm0 4h2v2h-2z"/><path d="M5 22h14c1.103 0 2-.897 2-2V6c0-1.103-.897-2-2-2h-2V2h-2v2H9V2H7v2H5c-1.103 0-2 .897-2 2v14c0 1.103.897 2 2 2zM19 8l.001 12H5V8h14z" /></svg>
+          <p class="text-red-600 text-xs font-medium pl-1"> {{ item.Fecha }} </p>
         </span>
 
         <span class="flex items-center justify-end">
           <ion-icon class=" w-7 h-7 text-green-500 " name="checkmark-circle"></ion-icon>
         </span>
+
       </div>
 
       <div class="w-full flex justify-between">
-        <p class="text-xs font-medium text-gray-800"> {{ item.Cliente }} </p>
+        <p class="text-xs font-medium text-gray-700"> {{ item.Cliente }} </p>
         <p class="text-xs text-left text-green-700 font-medium">s/ {{ item.Total }}</p>
       </div>
     </section>
-
-
-    <!-- <section class="border-b border-gray-200 py-1">
-      <div class="flex items-center justify-between">
-        <span class="flex items-center justify-start">
-          <ion-icon class="text-red-500 w-4 h-4" name="calendar-outline"></ion-icon>
-          <p class="text-red-500 text-xs font-medium">12/3/2021</p>
-        </span>
-        <span class="flex items-center justify-end">
-          <ion-icon class=" w-7 h-7 text-green-500 " name="checkmark-circle"></ion-icon>
-        </span>
-      </div>
-      <div class="w-full flex justify-between">
-        <p class="text-xs font-medium text-gray-800">Angela Marttinez Campos </p>
-        <p class="text-xs text-left text-green-700 font-medium">s/.90.80</p>
-      </div>
-    </section> -->
-
   </main>
 
 </ion-content>
