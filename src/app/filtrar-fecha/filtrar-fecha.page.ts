@@ -15,8 +15,23 @@ import { LoadingController } from '@ionic/angular';
   styleUrls: ['./filtrar-fecha.page.scss'],
 })
 export class FiltrarFechaPage implements OnInit {
-  
+
   formDate          : FormGroup;
+  Loading: Boolean = false;
+
+
+  loadingc(){
+    this.Loading =!this.Loading;
+    this.Settimeout_msexito();
+  }
+
+
+  // ModalTime
+  Settimeout_msexito() {
+    setTimeout(() => {
+      this.Loading = false;
+    }, 4000);
+  }
 
   constructor(
     private fb           : FormBuilder,
@@ -56,7 +71,7 @@ export class FiltrarFechaPage implements OnInit {
     }
 
     const fechaEmision      = this.validarFecha.convertFecha( this.formDate.controls.fechaInicio.value );
-    const fechaFin          = this.validarFecha.convertFecha( this.formDate.controls.fechaFinal.value );    
+    const fechaFin          = this.validarFecha.convertFecha( this.formDate.controls.fechaFinal.value );
 
     this.listPedidosAtendidos( fechaEmision, fechaFin);
 
@@ -82,7 +97,7 @@ export class FiltrarFechaPage implements OnInit {
       )
 
       .subscribe( (result : any) => {
-        
+
         this.dialogRef.close( result.result )
       }, () => {} )
 

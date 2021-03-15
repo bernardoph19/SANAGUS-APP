@@ -9,7 +9,8 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { PipesModule } from './pipes/pipes.module';
-import { AuthGuardGuard } from './guard/auth-guard.guard';
+import { AuthGuardService } from './services/auth-guard.service';
+/* import { AuthGuardGuard } from './guard/auth-guard.guard'; */
 
 @NgModule({
   declarations: [AppComponent],
@@ -23,7 +24,8 @@ import { AuthGuardGuard } from './guard/auth-guard.guard';
     PipesModule,    
   ],
   providers: [
-    AuthGuardGuard,
+    AuthGuardService,
+    /* AuthGuardGuard, */
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent],

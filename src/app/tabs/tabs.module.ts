@@ -7,7 +7,8 @@ import { IonicModule } from '@ionic/angular';
 import { TabsPageRoutingModule } from './tabs-routing.module';
 
 import { TabsPage } from './tabs.page';
-import { AuthGuardGuard } from '../guard/auth-guard.guard';
+import { AuthGuardService } from '../services/auth-guard.service';
+/* import { AuthGuardGuard } from '../guard/auth-guard.guard'; */
 
 @NgModule({
   imports: [
@@ -15,7 +16,8 @@ import { AuthGuardGuard } from '../guard/auth-guard.guard';
     FormsModule,
     IonicModule,
     TabsPageRoutingModule,
-    AuthGuardGuard
+    AuthGuardService
+    /* AuthGuardGuard */
 
   ],
   declarations: [TabsPage]

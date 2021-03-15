@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { AlertController } from '@ionic/angular';
-import { LoginserviceService } from 'src/app/services/loginservice.service'; 
+import { LoginserviceService } from 'src/app/services/loginservice.service';
 import { FiltrarFechaPage } from '../filtrar-fecha/filtrar-fecha.page';
 import { ValidadoresService } from 'src/app/login/validationLogin.service';
 
@@ -12,21 +12,24 @@ import { ValidadoresService } from 'src/app/login/validationLogin.service';
 })
 export class HistorialPage implements OnInit {
 
-  listaPedidoAtendido : any[];  
-  textoBuscar = ''; 
-  
+  listaPedidoAtendido : any[];
+  textoBuscar = '';
+
   /* customPickerOptions: any;
   customDate; */
 
+
+
+
   fechaInicio : Date = new Date();
 
-  constructor( 
+  constructor(
     public modal : MatDialog,
     public alertController: AlertController,
-    private loginService: LoginserviceService,   
-    private validar: ValidadoresService,      
+    private loginService: LoginserviceService,
+    private validar: ValidadoresService,
 
-  ) { 
+  ) {
 
     /* this.customPickerOptions = {
       buttons: [{
@@ -83,14 +86,14 @@ export class HistorialPage implements OnInit {
           role: 'cancel',
           cssClass:'btnn hover:bg-red-600 transition duration-500 ease-in',
           handler: () => {
-            console.log('Confirm Cancel');            
+            console.log('Confirm Cancel');
           }
         },
 
          {
           cssClass:'btnn hover:bg-red-600 transition duration-500 ease-in',
           text: 'Aplicar',
-          handler: () => { 
+          handler: () => {
             console.log('Confirm Ok');
           }
         }
@@ -121,23 +124,23 @@ export class HistorialPage implements OnInit {
 
 
   loadListPedidoAtendido(fechaInicio: string , fechaFinal : string) {
-        
+
     const userlogueado = JSON.parse(localStorage.getItem('userLogueado'));
-    
+
     const body = {
       'idusuario'   : userlogueado.id,
       'fechainicio' : fechaInicio,
       'fechafin'    : fechaFinal,
     };
-    
+
 
     this.loginService.listarPedidosAtendidos(body)
     .subscribe( (r : any) => {
 
       if( r.message === "exito" ){
-                
-        this.listaPedidoAtendido  = r.result;        
-      }            
+
+        this.listaPedidoAtendido  = r.result;
+      }
 
     });
   }
@@ -150,16 +153,16 @@ export class HistorialPage implements OnInit {
 
   seleccionarFechas(){
 
-    this.modal.open( FiltrarFechaPage, { 
+    this.modal.open( FiltrarFechaPage, {
 
     })
     .afterClosed()
     .subscribe( response => {
       //this.loadListPedidoAtendido( response.fInicio, response.fFinal )
       console.log(response);
-      this.listaPedidoAtendido = response; 
+      this.listaPedidoAtendido = response;
     } );
-    
+
   }
 
 

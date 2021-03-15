@@ -14,7 +14,7 @@ import { ValidadoresService } from 'src/app/login/validationLogin.service';
   styleUrls: ['home.page.scss'],
 })
 export class HomePage  implements OnInit {
-  
+
   listaPedido : Pedido[];
   textoBuscar = '';
 
@@ -28,9 +28,9 @@ export class HomePage  implements OnInit {
 
   }
 
- 
+
   ngOnInit() : void {
-    this.loadListPedido();
+   this.loadListPedido();
   }
 
   async loadListPedido() {

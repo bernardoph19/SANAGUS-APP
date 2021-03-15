@@ -10,6 +10,7 @@ import { FiltrarFechaPageRoutingModule } from './filtrar-fecha-routing.module';
 
 import { FiltrarFechaPage } from './filtrar-fecha.page';
 import { DemoMaterialModule } from '../material';
+import { LoadingPage } from '../loading/loading.page';
 
 @NgModule({
   imports: [
@@ -20,6 +21,8 @@ import { DemoMaterialModule } from '../material';
     FiltrarFechaPageRoutingModule,
     DemoMaterialModule
   ],
-  declarations: [FiltrarFechaPage]
+  declarations: [
+  FiltrarFechaPage,
+  LoadingPage]
 })
 export class FiltrarFechaPageModule {}
