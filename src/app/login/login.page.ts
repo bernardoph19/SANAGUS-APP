@@ -35,8 +35,8 @@ export class LoginPage implements OnInit {
     private router: Router,
 
   ){ 
-    const auth = localStorage.getItem('userLogueado');
-    if( auth ) this.navigateRute();
+    /* const auth = localStorage.getItem('userLogueado');
+    if( auth ) this.navigateRute(); */
 
     this.CrearFormulario();
     
@@ -115,7 +115,7 @@ export class LoginPage implements OnInit {
   }
 
   navigateRute(){
-    this.router.navigate(['/tabs']);
+    this.router.navigate(['/tabs'],  { replaceUrl: true });
   }
 
 }

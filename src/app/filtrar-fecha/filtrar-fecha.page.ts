@@ -17,34 +17,20 @@ import { LoadingController } from '@ionic/angular';
 export class FiltrarFechaPage implements OnInit {
 
   formDate          : FormGroup;
-  Loading: Boolean = false;
-
+  Loading           : Boolean = false;
 
   loadingc(){
-    this.Loading =!this.Loading;
-    this.Settimeout_msexito();
-  }
-
-
-  // ModalTime
-  Settimeout_msexito() {
-    setTimeout(() => {
-      this.Loading = false;
-    }, 4000);
-  }
+    this.Loading = true;    
+  }  
 
   constructor(
     private fb           : FormBuilder,
     private validarFecha : FechaValidarService,
     private loginService : LoginserviceService,
     private validators   : ValidadoresService,
-    public  dialogRef    : MatDialogRef<HistorialPage>,
-    private loadingCtrl  : LoadingController,
+    public  dialogRef    : MatDialogRef<HistorialPage>,    
 
-  ) {  this.createForm();
-    //const fechaActual = this.validarFecha.fechaActual();
-    //this.listPedidosAtendidos(fechaActual, fechaActual);
-  }
+  ) {  this.createForm(); }
 
   createForm(){
     this.formDate = this.fb.group({
@@ -79,8 +65,7 @@ export class FiltrarFechaPage implements OnInit {
 
   async listPedidosAtendidos( fechaInicio : string, fechaFin : string) {
 
-    let loading = await this.loadingCtrl.create();
-    await loading.present();
+    this.loadingc();
 
     const userlogueado = JSON.parse(localStorage.getItem('userLogueado'));
 
@@ -90,16 +75,16 @@ export class FiltrarFechaPage implements OnInit {
       fechafin    : fechaFin
     };
 
-    let callAPI =  this.loginService.listarPedidosAtendidos( body );
+    
+      this.loginService.listarPedidosAtendidos( body )
 
-      from(callAPI).pipe(
-        finalize( () => loading.dismiss() )
-      )
+        .subscribe( (result : any) => {
 
-      .subscribe( (result : any) => {
+          this.dialogRef.close( result.result )
+        }, () => {
 
-        this.dialogRef.close( result.result )
-      }, () => {} )
+          this.Loading = false;
+        } )
 
   }
 

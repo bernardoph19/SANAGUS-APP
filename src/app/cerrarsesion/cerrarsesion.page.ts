@@ -1,5 +1,6 @@
 
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-cerrarsesion',
@@ -8,13 +9,22 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CerrarsesionPage implements OnInit {
 
-  constructor() { }
+  constructor(
+    private router: Router,
+  ) { }
 
   ngOnInit() {
   }
 
   cerrarsesion: boolean = false;
-  close(){
+
+  closeSesion(){
+    localStorage.removeItem('userLogueado');
+    this.cerrarsesion =!this.cerrarsesion;
+    this.router.navigate(['/tabs'],  { replaceUrl: true });
+  }
+
+  cerrarModal() {
     this.cerrarsesion =!this.cerrarsesion;
   }
 

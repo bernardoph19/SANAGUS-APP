@@ -1,4 +1,4 @@
-<button (click)="close()" class="flex items-center focus:outline-none  px-1">
+<button (click)="cerrarModal()" class="flex items-center focus:outline-none  px-1">
   <img class="w-12 h-10" src="assets/img/users.png" alt="">
 </button>
 
@@ -16,8 +16,8 @@
               </div>
 
               <div class="flex justify-center items-center mt-5 px-5 space-x-3">
-                <button (click)="close()" type="button" class="w-full inline-flex justify-center items-center  rounded-md border-2 border-red-600  shadow-sm  px-5 py-2 bg-yellow-500 text-sm font-medium text-gray-900 hover:bg-yellow-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-600 sm:mt-0 sm:ml-2 sm:w-auto sm:text-sm">No</button>
-                <button routerLink="/login" type="button" class=" w-full inline-flex justify-center rounded-md border border-transparent items-center shadow-sm  px-5  py-2  bg-red-600 text-sm font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:ml-2 sm:w-auto sm:text-sm">Si</button>
+                <button (click)="cerrarModal()" type="button" class="w-full inline-flex justify-center items-center  rounded-md border-2 border-red-600  shadow-sm  px-5 py-2 bg-yellow-500 text-sm font-medium text-gray-900 hover:bg-yellow-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-600 sm:mt-0 sm:ml-2 sm:w-auto sm:text-sm">No</button>
+                <button type="button" (click)="closeSesion()" class=" w-full inline-flex justify-center rounded-md border border-transparent items-center shadow-sm  px-5  py-2  bg-red-600 text-sm font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:ml-2 sm:w-auto sm:text-sm">Si</button>
               </div>
           </div>
       </div>
