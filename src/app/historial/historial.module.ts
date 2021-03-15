@@ -12,6 +12,7 @@ import { DemoMaterialModule } from '../material';
 import { HistorialPage } from './historial.page';
 import { CerrarsesionPage } from '../cerrarsesion/cerrarsesion.page';
 
+
 @NgModule({
   imports: [
     CommonModule,
@@ -22,7 +23,8 @@ import { CerrarsesionPage } from '../cerrarsesion/cerrarsesion.page';
     DemoMaterialModule,
     PipesModule
   ],
-  declarations: [HistorialPage,
-  CerrarsesionPage]
+  declarations: [
+    HistorialPage,
+    CerrarsesionPage]
 })
 export class HistorialPageModule {}

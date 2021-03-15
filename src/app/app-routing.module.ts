@@ -9,6 +9,10 @@ const routes: Routes = [
     path: 'cerrarsesion',
     loadChildren: () => import('./cerrarsesion/cerrarsesion.module').then( m => m.CerrarsesionPageModule)
   },
+  {
+    path: 'loading',
+    loadChildren: () => import('./loading/loading.module').then( m => m.LoadingPageModule)
+  },
 
 ];
 
