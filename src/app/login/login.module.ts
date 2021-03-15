@@ -5,7 +5,7 @@ import {  ReactiveFormsModule  } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 import { LoginPageRoutingModule } from './login-routing.module';
 import { LoginPage } from './login.page';
-import { AuthGuardGuard } from '../guard/auth-guard.guard';
+/* import { AuthGuardGuard } from '../guard/auth-guard.guard'; */
 
 @NgModule({
   imports: [
@@ -13,8 +13,8 @@ import { AuthGuardGuard } from '../guard/auth-guard.guard';
     ReactiveFormsModule,
     //FormsModule,
     IonicModule,
-    LoginPageRoutingModule,
-    AuthGuardGuard
+    LoginPageRoutingModule
+    // AuthGuardGuard 
   ],
   declarations: [LoginPage]
 })

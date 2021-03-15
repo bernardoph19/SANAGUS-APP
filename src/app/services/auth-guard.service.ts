@@ -6,16 +6,15 @@ import { Router, CanActivate, ActivatedRouteSnapshot } from "@angular/router";
 })
 
 export class AuthGuardService implements CanActivate {
+  
   constructor(private router: Router) {}
 
   canActivate(route: ActivatedRouteSnapshot): boolean {
     console.log(route);
 
-    let authInfo = {
-      authenticated: false
-    };
+    const auth = localStorage.getItem('userLogueado');
 
-    if (!authInfo.authenticated) {
+    if (auth == undefined) {
       this.router.navigate(["\login"]);
       return false;
     }
