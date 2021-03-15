@@ -34,10 +34,15 @@ export class LoginPage implements OnInit {
     //private loginService: LoginService,
     private router: Router,
 
-  ) { this.CrearFormulario(); }
+  ){ 
+    const auth = localStorage.getItem('userLogueado');
+    if( auth ) this.navigateRute();
 
-  ngOnInit() {
+    this.CrearFormulario();
+    
   }
+
+  ngOnInit() {}
 
   CrearFormulario(){
     this.formSesion = this.formBuilder.group({
