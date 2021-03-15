@@ -7,6 +7,7 @@ import { HomePage } from './home.page';
 import { HomePageRoutingModule } from './home-routing.module';
 import { DemoMaterialModule } from '../material';
 import { PipesModule } from '../pipes/pipes.module';
+import { CerrarsesionPage } from '../cerrarsesion/cerrarsesion.page';
 
 
 @NgModule({
@@ -18,6 +19,7 @@ import { PipesModule } from '../pipes/pipes.module';
     DemoMaterialModule,
     PipesModule
   ],
-  declarations: [HomePage]
+  declarations: [HomePage,
+  CerrarsesionPage]
 })
 export class HomePageModule {}

@@ -10,6 +10,7 @@ import { HistorialPageRoutingModule } from './historial-routing.module';
 import { DemoMaterialModule } from '../material';
 
 import { HistorialPage } from './historial.page';
+import { CerrarsesionPage } from '../cerrarsesion/cerrarsesion.page';
 
 @NgModule({
   imports: [
@@ -21,6 +22,7 @@ import { HistorialPage } from './historial.page';
     DemoMaterialModule,
     PipesModule
   ],
-  declarations: [HistorialPage]
+  declarations: [HistorialPage,
+  CerrarsesionPage]
 })
 export class HistorialPageModule {}

@@ -5,7 +5,11 @@ const routes: Routes = [
   { path: '',   redirectTo: 'login',    pathMatch: 'full'  },  
   { path: 'login', loadChildren: () => import('./login/login.module').then( m => m.LoginPageModule) },
   { path: 'tabs',  loadChildren: () => import('./tabs/tabs.module').then( m => m.TabsPageModule) },
-  { path: 'filtrar-fecha', loadChildren: () => import('./filtrar-fecha/filtrar-fecha.module').then( m => m.FiltrarFechaPageModule) },
+  { path: 'filtrar-fecha', loadChildren: () => import('./filtrar-fecha/filtrar-fecha.module').then( m => m.FiltrarFechaPageModule) },  {
+    path: 'cerrarsesion',
+    loadChildren: () => import('./cerrarsesion/cerrarsesion.module').then( m => m.CerrarsesionPageModule)
+  },
+
 ];
 
 @NgModule({
