@@ -17,8 +17,8 @@ export class HistorialPage implements OnInit {
   fechaInicio : Date = new Date();
 
   constructor(
-    public modal : MatDialog,
-    public alertController: AlertController,
+    public  modal : MatDialog,
+    public  alertController: AlertController,
     private loginService: LoginserviceService,
     private validar: ValidadoresService,
 
@@ -53,7 +53,6 @@ export class HistorialPage implements OnInit {
     .subscribe( response => { this.listaPedidoAtendido = response; } );
 
   }
-
 
   ngOnInit() {
     //this.loadListPedidoAtendido();

@@ -13,7 +13,7 @@ export class HomePage  implements OnInit {
 
   listaPedido       : Pedido[];
   textoBuscar       = '';
-  loading           : Boolean = false;
+  Loading           : Boolean = false;
 
   constructor(
     public modal:MatDialog,
@@ -28,23 +28,30 @@ export class HomePage  implements OnInit {
 
   async loadListPedido() {
 
-    this.loading = true;
+    this.Loading = true;
     const userlogueado = JSON.parse(localStorage.getItem('userLogueado'));
-    const rep = {
-      'idusuario' : userlogueado.id
-    };
+    const rep = {  'idusuario' : userlogueado.id };
 
     this.loginService.listarPendientesToday(rep)
       .subscribe( (r : any) => {
 
-        if( r.message === "exito" ){ this.listaPedido  = r.result; }
+        if( r.message === "exito" ) {
+           this.listaPedido  = r.result
+           this.Loading = false
+        }        
 
-      }, () => { this.loading = false; });
+      }, () => {
+        this.Loading = false
+      })
+      .add( () => {
+        /* this.Loading = false */
+      })
+      
   }
 
   actulziarPedido(id:string) {
     
-    this.loading = true;
+    this.Loading = true;
 
     const body = {  'idventa' : id };
 
@@ -53,7 +60,7 @@ export class HomePage  implements OnInit {
 
       if( r.message === "Venta entragada" ){ this.loadListPedido(); }
 
-    }, () => { this.loading = false;});
+    }, () => {  });
 
   }
 

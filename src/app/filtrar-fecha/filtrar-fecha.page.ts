@@ -3,11 +3,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { LoginserviceService } from 'src/app/services/loginservice.service';
 import { ValidadoresService } from 'src/app/login/validationLogin.service';
 import { MatDialogRef } from '@angular/material/dialog';
-import { finalize } from 'rxjs/operators';
-import { from } from 'rxjs';
 import { FechaValidarService } from '../services/fecha-validar.service';
 import { HistorialPage } from '../historial/historial.page';
-import { LoadingController } from '@ionic/angular';
 
 @Component({
   selector: 'app-filtrar-fecha',
@@ -76,13 +73,11 @@ export class FiltrarFechaPage implements OnInit {
     };
 
     
-      this.loginService.listarPedidosAtendidos( body )
-
+    this.loginService.listarPedidosAtendidos( body )
         .subscribe( (result : any) => {
 
           this.dialogRef.close( result.result )
         }, () => {
-
           this.Loading = false;
         } )
 

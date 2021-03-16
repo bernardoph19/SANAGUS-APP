@@ -16,7 +16,7 @@ export class LoginPage implements OnInit {
   formSesion        : FormGroup;
   message           : string;
   userLogueado      : any;
-  loading           : Boolean = false;
+  Loading           : Boolean = false;
 
   constructor(
     
@@ -51,7 +51,7 @@ export class LoginPage implements OnInit {
       return this.svalidator.Empty_data(this.formSesion);
     }
 
-    this.loading = true;
+    this.Loading = true;
 
     const body = {
       ... this.formSesion.value
@@ -68,14 +68,15 @@ export class LoginPage implements OnInit {
           this.userLogueado = { id: result.IDUsuario, user : result.Usuario, tipousuario : result.TipoUsuario }
           localStorage.setItem('userLogueado', JSON.stringify(this.userLogueado));                     
           this.navigateRute();
-          this.reset();          
+          this.reset();
+          this.Loading = false
         }
 
       }, ( error ) => {
         this.message = error.error.message ?? "Sin conexion al servidor";
         this.presentToast(error.error.message);
         this.reset();
-        this.loading = false;
+        this.Loading = false;
       });
 
   }  
