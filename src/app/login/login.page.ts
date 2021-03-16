@@ -3,7 +3,8 @@ import { LoginserviceService } from 'src/app/services/loginservice.service';
 import { Router } from '@angular/router';
 import { FormGroup,  FormBuilder, Validators} from '@angular/forms';
 import { ValidadoresService } from 'src/app/login/validationLogin.service';
-import { ToastController } from '@ionic/angular';
+import { Platform, ToastController } from '@ionic/angular';
+
 
 @Component({
   selector: 'app-login',
@@ -17,16 +18,29 @@ export class LoginPage implements OnInit {
   message           : string;
   userLogueado      : any;
   Loading           : Boolean = false;
+  subcribeSalir     : any;
 
   constructor(
     
-    private loginService: LoginserviceService,
-    private formBuilder: FormBuilder,
-    private svalidator: ValidadoresService,
+    public platform       : Platform,
+    private loginService  : LoginserviceService,
+    private formBuilder   : FormBuilder,
+    private svalidator    : ValidadoresService,
     public toastController: ToastController,    
-    private router: Router,
+    private router        : Router,
 
-  ){ this.CrearFormulario(); }
+  ){ 
+    this.subcribeSalir =  this.platform.backButton.subscribeWithPriority(666666, 
+      () => {
+          if(this.constructor.name == 'LoginPage') {
+            if(window.confirm("Deseas salir de la Aplicacion?")){
+              navigator["app"].exitApp();
+            }
+          }
+      })
+      
+    this.CrearFormulario(); 
+  }
   
   ngOnInit() {}
 

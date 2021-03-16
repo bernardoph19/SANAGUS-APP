@@ -71,4 +71,17 @@ export class HomePage  implements OnInit {
   buscar( event : any ) {    
     this.textoBuscar = event.detail.value;
   }
+
+
+
+
+  regargar(event : any) {
+    
+    this.loadListPedido().finally( () => {
+      event.target.complete();
+    });
+    
+    
+  }
+  
 }

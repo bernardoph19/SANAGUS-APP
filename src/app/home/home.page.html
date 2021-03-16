@@ -5,48 +5,52 @@
     <app-cerrarsesion></app-cerrarsesion>
       <ion-searchbar animated class="text-xs" placeholder="Buscar..."
                   (ionChange)="buscar( $event )">
-      </ion-searchbar>
-      <!-- <ion-searchbar  class="text-xs" placeholder="Buscar..." animated></ion-searchbar> -->
+      </ion-searchbar>      
   </div>
+
   <div class="flex justify-between w-full items-center px-2 py-1">
     <p class="text-sm font-medium text-gray-900">Listado</p>
-    <p class="text-sm font-medium text-gray-900">{{ (listaPedido == undefined)  ? 0 : listaPedido.length}}</p>
+    <p class="text-sm font-medium text-gray-900">{{ (listaPedido == undefined || listaPedido.length == 0 )  ? 0 : listaPedido.length}}</p>
   </div>
 </ion-header>
 
 
-<ion-content [fullscreen]="true">
-  <main class="px-2 pt-2">
 
-    <section *ngFor="let item of listaPedido | filtro : textoBuscar: 'Cliente'" class="border-b border-gray-200 py-1">
+<ion-content class="pt-2 px-2">
+  <ion-refresher slot="fixed" (ionRefresh)="regargar($event)">
+    <ion-refresher-content >
+    </ion-refresher-content>
+  </ion-refresher>
 
-      <div class="flex items-center justify-between">
-
-        <span class="flex items-center justify-start">
-          <svg class="w-5 h-5 text-red-600 fill-current" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" focusable="false" width="1em" height="1em" style="-ms-transform: rotate(360deg); -webkit-transform: rotate(360deg); transform: rotate(360deg);" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><path d="M7 11h2v2H7zm0 4h2v2H7zm4-4h2v2h-2zm0 4h2v2h-2zm4-4h2v2h-2zm0 4h2v2h-2z"/><path d="M5 22h14c1.103 0 2-.897 2-2V6c0-1.103-.897-2-2-2h-2V2h-2v2H9V2H7v2H5c-1.103 0-2 .897-2 2v14c0 1.103.897 2 2 2zM19 8l.001 12H5V8h14z" /></svg>
-          <p class="text-red-500 text-xs font-medium pl-1"> {{ item.Fecha }}</p>
-        </span>
-
-        <span class="flex items-center justify-end">
-          <button type="button" class="btn w-full h-9 cursor-pointer font-medium px-6 text-xs" (click)="actulziarPedido( item.IDVenta ) " >Entregado</button>
-        </span>
-
-      </div>
-
-      <div class="w-full">
-        <p class="text-xs font-medium text-gray-800">{{ item.Cliente }}</p>
-        <p class="text-xs text-left text-gray-500">{{ item.Telefono }}</p>
-        <p class="text-xs text-gray-400">{{ item.DireccionEnvio }}</p>
-      </div>
-    </section>
-
-       <!-- No hay ningun pendiente -->
-       <div *ngIf="noData==false" class="flex flex-col items-center pt-20 content-center  justify-center">
-        <img src="assets/img/pendientes.svg" alt="">
-          <p class="text-sm font-medium leading-normal w-full  text-center text-gray-600">No hay ningún pendiente</p>
-          <p class="text-xs leading-3 text-center w-full text-gray-500">Al parecer no se le asigno pedidos</p>
-      </div>
-  </main>
+        <section *ngFor="let item of listaPedido | filtro : textoBuscar: 'Cliente'" class="border-b border-gray-200 py-1 px-2">
+    
+          <div class="flex items-center justify-between">
+    
+            <span class="flex items-center justify-start">
+              <svg class="w-5 h-5 text-red-600 fill-current" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" focusable="false" width="1em" height="1em" style="-ms-transform: rotate(360deg); -webkit-transform: rotate(360deg); transform: rotate(360deg);" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><path d="M7 11h2v2H7zm0 4h2v2H7zm4-4h2v2h-2zm0 4h2v2h-2zm4-4h2v2h-2zm0 4h2v2h-2z"/><path d="M5 22h14c1.103 0 2-.897 2-2V6c0-1.103-.897-2-2-2h-2V2h-2v2H9V2H7v2H5c-1.103 0-2 .897-2 2v14c0 1.103.897 2 2 2zM19 8l.001 12H5V8h14z" /></svg>
+              <p class="text-red-500 text-xs font-medium pl-1"> {{ item.Fecha }}</p>
+            </span>
+    
+            <span class="flex items-center justify-end">
+              <button type="button" class="btn w-full h-9 cursor-pointer font-medium px-6 text-xs" (click)="actulziarPedido( item.IDVenta ) " >Entregado</button>
+            </span>
+    
+          </div>
+    
+          <div class="w-full">
+            <p class="text-xs font-medium text-gray-800">{{ item.Cliente }}</p>
+            <p class="text-xs text-left text-gray-500">{{ item.Telefono }}</p>
+            <p class="text-xs text-gray-400">{{ item.DireccionEnvio }}</p>
+          </div>
+        </section>
+    
+           <!-- No hay ningun pendiente -->
+           <div *ngIf="noData==false" class="flex flex-col items-center pt-20 content-center  justify-center">
+            <img src="assets/img/pendientes.svg" alt="">
+              <p class="text-sm font-medium leading-normal w-full  text-center text-gray-600">No hay ningún pendiente</p>
+              <p class="text-xs leading-3 text-center w-full text-gray-500">Al parecer no se le asigno pedidos</p>
+          </div>     
+    
 </ion-content>
 
 <app-loading [loadin]="Loading"> </app-loading>
