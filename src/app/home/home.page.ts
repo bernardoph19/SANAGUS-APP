@@ -1,12 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { AlertController, LoadingController } from '@ionic/angular';
-import { finalize } from 'rxjs/operators';
-import { from } from 'rxjs';
-
-import { Pedido } from './../models/user.model';
 import { LoginserviceService } from 'src/app/services/loginservice.service';
 import { ValidadoresService } from 'src/app/login/validationLogin.service';
+import { Pedido } from './../models/user.model';
 
 @Component({
   selector: 'app-home',
@@ -15,19 +11,16 @@ import { ValidadoresService } from 'src/app/login/validationLogin.service';
 })
 export class HomePage  implements OnInit {
 
-  listaPedido : Pedido[];
-  textoBuscar = '';
+  listaPedido       : Pedido[];
+  textoBuscar       = '';
+  loading           : Boolean = false;
 
   constructor(
     public modal:MatDialog,
-    private loginService: LoginserviceService,
-    private loadingCtrl: LoadingController,
+    private loginService: LoginserviceService,    
     private validar: ValidadoresService,
 
-  ) {
-
-  }
-
+  ) { }
 
   ngOnInit() : void {
    this.loadListPedido();
@@ -35,47 +28,32 @@ export class HomePage  implements OnInit {
 
   async loadListPedido() {
 
-    let loading = await this.loadingCtrl.create();
-    await loading.present();
-
+    this.loading = true;
     const userlogueado = JSON.parse(localStorage.getItem('userLogueado'));
     const rep = {
       'idusuario' : userlogueado.id
     };
 
-    let callAPI = this.loginService.listarPendientesToday(rep);
+    this.loginService.listarPendientesToday(rep)
+      .subscribe( (r : any) => {
 
-        from(callAPI).pipe(
-          finalize( () => loading.dismiss() )
-        )
+        if( r.message === "exito" ){ this.listaPedido  = r.result; }
 
-        .subscribe( (r : any) => {
-
-          if( r.message === "exito" ){
-
-            this.listaPedido  = r.result;
-          }
-
-        });
+      }, () => { this.loading = false; });
   }
 
   actulziarPedido(id:string) {
+    
+    this.loading = true;
 
-    const body = {
-      'idventa' : id
-    };
+    const body = {  'idventa' : id };
 
     this.loginService.actualizarVenta(body)
     .subscribe( (r : any) => {
 
-      if( r.message === "Venta entragada" ){
+      if( r.message === "Venta entragada" ){ this.loadListPedido(); }
 
-        this.loadListPedido();
-      }
-
-    });
-
-
+    }, () => { this.loading = false;});
 
   }
 
@@ -83,8 +61,7 @@ export class HomePage  implements OnInit {
     return this.validar.sinResultado(this.listaPedido);
   }
 
-  buscar( event : any ) {
-    //console.log(event.detail.value);
+  buscar( event : any ) {    
     this.textoBuscar = event.detail.value;
   }
 }

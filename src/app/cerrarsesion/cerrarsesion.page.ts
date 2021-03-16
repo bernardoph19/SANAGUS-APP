@@ -21,7 +21,7 @@ export class CerrarsesionPage implements OnInit {
   closeSesion(){
     localStorage.removeItem('userLogueado');
     this.cerrarsesion =!this.cerrarsesion;
-    this.router.navigate(['/tabs'],  { replaceUrl: true });
+    this.router.navigate(['/login'],  { replaceUrl: true });
   }
 
   cerrarModal() {

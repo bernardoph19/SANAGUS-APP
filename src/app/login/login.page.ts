@@ -1,14 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { LoadingController } from '@ionic/angular';
-/* import { LoginService } from './login.service.service'; */
 import { LoginserviceService } from 'src/app/services/loginservice.service';
 import { Router } from '@angular/router';
 import { FormGroup,  FormBuilder, Validators} from '@angular/forms';
 import { ValidadoresService } from 'src/app/login/validationLogin.service';
 import { ToastController } from '@ionic/angular';
-
-import { finalize } from 'rxjs/operators';
-import { from } from 'rxjs';
 
 @Component({
   selector: 'app-login',
@@ -18,30 +13,21 @@ import { from } from 'rxjs';
 
 export class LoginPage implements OnInit {
 
-  formSesion: FormGroup;
-  message : string;
-  userLogueado : any;
+  formSesion        : FormGroup;
+  message           : string;
+  userLogueado      : any;
+  loading           : Boolean = false;
 
   constructor(
     
     private loginService: LoginserviceService,
     private formBuilder: FormBuilder,
     private svalidator: ValidadoresService,
-
-    private loadingCtrl: LoadingController,
-    public toastController: ToastController,
-
-    //private loginService: LoginService,
+    public toastController: ToastController,    
     private router: Router,
 
-  ){ 
-    /* const auth = localStorage.getItem('userLogueado');
-    if( auth ) this.navigateRute(); */
-
-    this.CrearFormulario();
-    
-  }
-
+  ){ this.CrearFormulario(); }
+  
   ngOnInit() {}
 
   CrearFormulario(){
@@ -59,25 +45,20 @@ export class LoginPage implements OnInit {
     return this.svalidator.control_invalid("password", this.formSesion);
   }
 
-  async login(){
+  async login() {
 
     if( this.formSesion.invalid ){
       return this.svalidator.Empty_data(this.formSesion);
     }
 
-    let loading = await this.loadingCtrl.create();
-    await loading.present();
+    this.loading = true;
 
     const body = {
       ... this.formSesion.value
     };
 
-    let call = this.loginService.postInicioSesion( body );
+    this.loginService.postInicioSesion( body )
     
-      from(call).pipe(
-        finalize( () => loading.dismiss() )
-      )
-
       .subscribe ( ( r : any )  =>  {
 
         if( r.message === "exito" ){
@@ -87,15 +68,14 @@ export class LoginPage implements OnInit {
           this.userLogueado = { id: result.IDUsuario, user : result.Usuario, tipousuario : result.TipoUsuario }
           localStorage.setItem('userLogueado', JSON.stringify(this.userLogueado));                     
           this.navigateRute();
-          this.reset();
-
-          
+          this.reset();          
         }
 
-      }, ( error )=>{
+      }, ( error ) => {
         this.message = error.error.message ?? "Sin conexion al servidor";
         this.presentToast(error.error.message);
-        this.reset()
+        this.reset();
+        this.loading = false;
       });
 
   }  
