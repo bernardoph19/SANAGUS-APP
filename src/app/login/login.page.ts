@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { FormGroup,  FormBuilder, Validators} from '@angular/forms';
 import { ValidadoresService } from 'src/app/login/validationLogin.service';
 import { Platform, ToastController } from '@ionic/angular';
-
+/* import { SplashScreen } from '@capacitor/splash-screen'; */
 
 @Component({
   selector: 'app-login',
@@ -29,7 +29,12 @@ export class LoginPage implements OnInit {
     public toastController: ToastController,    
     private router        : Router,
 
-  ){ 
+  ){
+    
+    const auth = localStorage.getItem('userLogueado');
+    if( auth ) this.navigateRute(); 
+    
+
     this.subcribeSalir =  this.platform.backButton.subscribeWithPriority(666666, 
       () => {
           if(this.constructor.name == 'LoginPage') {
@@ -38,9 +43,13 @@ export class LoginPage implements OnInit {
             }
           }
       })
-      
+    
     this.CrearFormulario(); 
   }
+
+  /* onViewDidEnter() {
+    SplashScreen.hide();
+  } */
   
   ngOnInit() {}
 
