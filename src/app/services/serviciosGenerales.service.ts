@@ -5,7 +5,7 @@ import { mdUser, mdRepartidor, mdPedido, mdPedidoAtendido } from 'src/app/models
 @Injectable({
   providedIn: 'root'
 })
-export class LoginserviceService {
+export class ServiciosGeneralesService {
 
   constructor(
     private http: HttpClient,
