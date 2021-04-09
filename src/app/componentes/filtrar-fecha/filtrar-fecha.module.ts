@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
-import { DemoMaterialModule } from 'SRC/app/material';
+import { DemoMaterialModule } from 'src/app/material';
 
 import { LoadingPageModule } from 'src/app/componentes/loading/loading.module';
 
@@ -23,8 +23,8 @@ import { FiltrarFechaPage } from './filtrar-fecha.page';
   declarations: [
     FiltrarFechaPage,
   ],
-  exports: [
+  /* exports: [
     FiltrarFechaPage
-  ]
+  ] */
 })
 export class FiltrarFechaPageModule {}

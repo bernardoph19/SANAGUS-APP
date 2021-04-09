@@ -4,6 +4,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { Pedido } from 'src/app/models/user.model';
 import { ServiciosGeneralesService } from 'src/app/services/serviciosGenerales.service';
 import { ValidadorGeneralService } from 'src/app/services/validadorGeneral.service';
+import { DataLocalService } from 'src/app/services/data-local.service';
 
 
 @Component({
@@ -15,12 +16,14 @@ export class HomePage  implements OnInit {
 
   listaPedido       : Pedido[];
   textoBuscar       = '';
-  Loading           : Boolean = false;
+  Loading           : boolean = false;
+  idUsuario         : string;
 
   constructor(
     public modal:MatDialog,
     private loginService: ServiciosGeneralesService,    
     private validar: ValidadorGeneralService,
+    private dataLocalService : DataLocalService
 
   ) { }
 
@@ -31,8 +34,15 @@ export class HomePage  implements OnInit {
   async loadListPedido() {
 
     this.Loading = true;
-    const userlogueado = JSON.parse(localStorage.getItem('userLogueado'));
-    const rep = {  'idusuario' : userlogueado.id };
+
+    this.dataLocalService.getUserLogin().then( (x : any) => {
+      if(x) {
+        this.idUsuario = x.IDUsuario;
+      }            
+    });
+
+    /* const userlogueado = JSON.parse(localStorage.getItem('userLogueado')); */
+    const rep = {  'idusuario' : this.idUsuario };
 
     this.loginService.listarPendientesToday(rep)
       .subscribe( (r : any) => {

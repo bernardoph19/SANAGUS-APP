@@ -1,0 +1,30 @@
+{
+  "appId": "io.ionic.starter",
+  "appName": "Repartidor SA",
+  "bundledWebRuntime": false,
+  "npmClient": "npm",
+  "webDir": "www",
+  "plugins": {
+    "SplashScreen": {
+      "launchShowDuration": 300,
+      "SplashShowOnlyFirstTime": "false",
+      "androidSplashResourceName": "splash",
+      "SplashScreen": "screen",
+      "launchAutoHide": false,
+      "spinnerColor": "#5cd053",
+      "showSpinner": true,
+      "splashFullScreen": true,
+      "splashImmersive": true,
+      "androidScaleType": "CENTER_CROP"
+    }
+  },
+  "cordova": {
+    "preferences": {
+      "ScrollEnabled": "false",
+      "BackupWebStorage": "none",
+      "SplashMaintainAspectRatio": "true",
+      "SplashShowOnlyFirstTime": "false",
+      "SplashScreen": "screen"
+    }
+  }
+}

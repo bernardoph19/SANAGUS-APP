@@ -3,6 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ServiciosGeneralesService } from 'src/app/services/serviciosGenerales.service';
 import { FiltrarFechaPage } from 'src/app/componentes/filtrar-fecha/filtrar-fecha.page';
 import { ValidadorGeneralService } from 'src/app/services/validadorGeneral.service';
+import { DataLocalService } from 'src/app/services/data-local.service';
 
 
 @Component({
@@ -13,22 +14,30 @@ import { ValidadorGeneralService } from 'src/app/services/validadorGeneral.servi
 export class HistorialPage implements OnInit {
 
   listaPedidoAtendido : any[];
-  textoBuscar = '';
-  fechaInicio : Date = new Date();
+  textoBuscar         = '';
+  fechaInicio         : Date = new Date();
+  idUsuario           : string;
 
   constructor(
     public  modal : MatDialog,    
     private loginService: ServiciosGeneralesService,
     private validar: ValidadorGeneralService,
+    private dataLocalService : DataLocalService
 
   ) {    }
 
   loadListPedidoAtendido(fechaInicio: string , fechaFinal : string) {
 
-    const userlogueado = JSON.parse(localStorage.getItem('userLogueado'));
+    //const userlogueado = JSON.parse(localStorage.getItem('userLogueado'));
+
+    this.dataLocalService.getUserLogin().then( (x : any) => {
+      if(x) {
+        this.idUsuario = x.IDUsuario;
+      }            
+    });
 
     const body = {
-      'idusuario'   : userlogueado.id,
+      'idusuario'   : this.idUsuario,
       'fechainicio' : fechaInicio,
       'fechafin'    : fechaFinal,
     };

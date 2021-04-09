@@ -9,13 +9,13 @@ export class LoadingPage implements OnInit {
 
   constructor() { }
 
-  @Input()  loadin:boolean = false;
+  @Input()  loadin : boolean = false;
   
   ngOnInit() {
   }
   
 
   loadingGC(){
-      this.loadin =!this.loadin;
+      this.loadin = !this.loadin;
   }
 }

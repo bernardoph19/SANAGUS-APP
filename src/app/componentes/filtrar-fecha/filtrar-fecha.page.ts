@@ -15,7 +15,7 @@ import { ServiciosGeneralesService } from 'src/app/services/serviciosGenerales.s
 export class FiltrarFechaPage implements OnInit {
 
   formDate          : FormGroup;
-  Loading           : Boolean = false;
+  Loading           : boolean = false;
 
   loadingc(){
     this.Loading = true;    

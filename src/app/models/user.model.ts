@@ -1,10 +1,8 @@
 import { IonDatetime } from "@ionic/angular";
-
 export class mdUser{    
     usuario     : string;
     password    : string;    
 }
-
 export class mdRepartidor{    
     idusuario: string;    
 }
@@ -16,9 +14,6 @@ export class mdPedidoAtendido{
     fechainicio : string;
     fechafin    : string;
 }
-
-
-
 export interface Pedido {
     IDVenta             : string;
     Fecha               : IonDatetime;
@@ -32,4 +27,10 @@ export interface Pedido {
     Repartidor          : string;
     Estado              : string;
     IDRepartidor        : string;
+}
+export interface Usuario {
+    IDUsuario             : string;
+    Usuario               : IonDatetime;
+    Estado                : string;
+    TipoUsuario           : string;    
 }

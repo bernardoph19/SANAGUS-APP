@@ -5,6 +5,8 @@ import { Platform, ToastController } from '@ionic/angular';
 
 import { ServiciosGeneralesService } from 'src/app/services/serviciosGenerales.service';
 import { ValidadorGeneralService } from 'src/app/services/validadorGeneral.service';
+import { Usuario } from 'src/app/models/user.model';
+import { DataLocalService } from 'src/app/services/data-local.service';
 
 @Component({
   selector    : 'app-login',
@@ -16,8 +18,8 @@ export class LoginPage implements OnInit {
 
   formSesion        : FormGroup;
   message           : string;
-  userLogueado      : any;
-  Loading           : Boolean = false;
+  userLogueado      : Usuario;
+  Loading           : boolean = false;
   subcribeSalir     : any;
 
   constructor(
@@ -28,9 +30,15 @@ export class LoginPage implements OnInit {
     private svalidator       : ValidadorGeneralService,
     public  toastController  : ToastController,    
     private router           : Router,
+    private dataLocalService : DataLocalService
 
   ){        
     
+    this.dataLocalService.getUserLogin().then((x : any) => {
+      if(x.IDUsuario) {
+        this.navigateRute()
+      }      
+    });
 
     this.subcribeSalir =  this.platform.backButton.subscribeWithPriority(666666, 
       () => {
@@ -39,7 +47,7 @@ export class LoginPage implements OnInit {
               navigator["app"].exitApp();
             }
           }
-      })
+      });
     
     this.CrearFormulario(); 
   }
@@ -55,11 +63,11 @@ export class LoginPage implements OnInit {
   }
 
   get userNovalido(){
-    return this.svalidator.control_invalid("usuario", this.formSesion);
+    return this.svalidator.controlInvalid("usuario", this.formSesion);
   }
 
   get passNovalido(){
-    return this.svalidator.control_invalid("password", this.formSesion);
+    return this.svalidator.controlInvalid("password", this.formSesion);
   }
 
   async login() {
@@ -76,14 +84,17 @@ export class LoginPage implements OnInit {
 
     this.loginService.postInicioSesion( body )
     
-      .subscribe ( ( r : any )  =>  {
+      .subscribe ( ( r : any )  =>   {
 
         if( r.message === "exito" ){
 
           const result = r.result;    
           
-          this.userLogueado = { id: result.IDUsuario, user : result.Usuario, tipousuario : result.TipoUsuario }
-          localStorage.setItem('userLogueado', JSON.stringify(this.userLogueado));                     
+          /* this.userLogueado = { id: result.IDUsuario, user : result.Usuario, tipousuario : result.TipoUsuario }
+          localStorage.setItem('userLogueado', JSON.stringify(this.userLogueado)); */
+
+          this.userLogueado = result;
+          this.dataLocalService.setUserLogin( this.userLogueado );
           this.navigateRute();
           this.reset();
           this.Loading = false

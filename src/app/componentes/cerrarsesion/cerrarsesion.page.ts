@@ -1,6 +1,7 @@
 
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { DataLocalService } from 'src/app/services/data-local.service';
 
 @Component({
   selector: 'app-cerrarsesion',
@@ -11,6 +12,7 @@ export class CerrarsesionPage implements OnInit {
 
   constructor(
     private router: Router,
+    private dataLocalService : DataLocalService
   ) { }
 
   ngOnInit() {
@@ -19,9 +21,13 @@ export class CerrarsesionPage implements OnInit {
   cerrarsesion: boolean = false;
 
   closeSesion(){
-    localStorage.removeItem('userLogueado');
-    this.cerrarsesion =!this.cerrarsesion;
-    this.router.navigate(['/login'],  { replaceUrl: true });
+    /* localStorage.removeItem('userLogueado'); */
+    this.dataLocalService.clearUsuerLogin().then((x :boolean) => {
+      if(x) {
+        this.cerrarsesion =!this.cerrarsesion;
+        this.router.navigate(['/login'],  { replaceUrl: true });
+      }
+    })
   }
 
   cerrarModal() {

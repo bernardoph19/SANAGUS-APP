@@ -9,6 +9,7 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { PipesModule } from './pipes/pipes.module';
+import { NativeStorage } from '@ionic-native/native-storage/ngx';
 
 
 @NgModule({
@@ -20,10 +21,11 @@ import { PipesModule } from './pipes/pipes.module';
     IonicModule.forRoot(), 
     AppRoutingModule, 
     BrowserAnimationsModule,
-    PipesModule,    
+    PipesModule      
   ],
   providers: [
-    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
+    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+    NativeStorage
   ],
   bootstrap: [AppComponent],
 })
