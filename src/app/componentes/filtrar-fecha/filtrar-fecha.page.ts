@@ -6,6 +6,8 @@ import { FechaValidarService } from '../../services/fecha-validar.service';
 import { HistorialPage } from '../../pages/historial/historial.page';
 import { ValidadorGeneralService } from 'src/app/services/validadorGeneral.service';
 import { ServiciosGeneralesService } from 'src/app/services/serviciosGenerales.service';
+import { Platform } from '@ionic/angular';
+import { DataLocalService } from 'src/app/services/data-local.service';
 
 @Component({
   selector: 'app-filtrar-fecha',
@@ -16,17 +18,20 @@ export class FiltrarFechaPage implements OnInit {
 
   formDate          : FormGroup;
   Loading           : boolean = false;
+  dataLocal         : any;
 
   loadingc(){
     this.Loading = true;    
   }  
 
   constructor(
-    private fb           : FormBuilder,
-    private validarFecha : FechaValidarService,
-    private loginService : ServiciosGeneralesService,
-    private validators   : ValidadorGeneralService,
-    public  dialogRef    : MatDialogRef<HistorialPage>,    
+    private fb               : FormBuilder,
+    private validarFecha     : FechaValidarService,
+    private loginService     : ServiciosGeneralesService,
+    private validators       : ValidadorGeneralService,
+    public  dialogRef        : MatDialogRef<HistorialPage>,
+    public  platform         : Platform,
+    private dataLocalService : DataLocalService,
 
   ) {  this.createForm(); }
 
@@ -64,24 +69,36 @@ export class FiltrarFechaPage implements OnInit {
   async listPedidosAtendidos( fechaInicio : string, fechaFin : string) {
 
     this.loadingc();
-
-    const userlogueado = JSON.parse(localStorage.getItem('userLogueado'));
+    this.evaluarPlataforma();    
 
     const body = {
-      idusuario   : userlogueado.id,
+      //idusuario   : userlogueado.id,
+      idusuario   : this.dataLocal.IDUsuario,
       fechainicio : fechaInicio,
       fechafin    : fechaFin
     };
-
     
     this.loginService.listarPedidosAtendidos( body )
-        .subscribe( (result : any) => {
+        .subscribe( (result : any) => {          
 
           this.dialogRef.close( result.result )
         }, () => {
           this.Loading = false;
         } )
 
+  }
+
+  evaluarPlataforma() {
+    if (this.platform.is('android') || this.platform.is('ios')) {
+      this.dataLocalService.getUserLogin()
+        .then((x) => {
+          this.dataLocal = x;
+        })
+
+    } else {
+      this.dataLocal = JSON.parse(localStorage.getItem('userLogueado'));
+            
+    }
   }
 
 }

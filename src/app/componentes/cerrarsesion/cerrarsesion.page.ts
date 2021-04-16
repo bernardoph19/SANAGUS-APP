@@ -21,13 +21,14 @@ export class CerrarsesionPage implements OnInit {
   cerrarsesion: boolean = false;
 
   closeSesion(){
-    /* localStorage.removeItem('userLogueado'); */
-    this.dataLocalService.clearUsuerLogin().then((x :boolean) => {
+    localStorage.removeItem('userLogueado'); 
+    this.router.navigate(['/login'],  { replaceUrl: true });
+    /* this.dataLocalService.clearUsuerLogin().then((x :boolean) => {
       if(x) {
         this.cerrarsesion =!this.cerrarsesion;
         this.router.navigate(['/login'],  { replaceUrl: true });
       }
-    })
+    }) */
   }
 
   cerrarModal() {

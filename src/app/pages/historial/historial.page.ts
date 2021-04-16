@@ -21,44 +21,15 @@ export class HistorialPage implements OnInit {
   constructor(
     public  modal : MatDialog,    
     private loginService: ServiciosGeneralesService,
-    private validar: ValidadorGeneralService,
-    private dataLocalService : DataLocalService
+    private validar: ValidadorGeneralService,    
 
-  ) {    }
-
-  loadListPedidoAtendido(fechaInicio: string , fechaFinal : string) {
-
-    //const userlogueado = JSON.parse(localStorage.getItem('userLogueado'));
-
-    this.dataLocalService.getUserLogin().then( (x : any) => {
-      if(x) {
-        this.idUsuario = x.IDUsuario;
-      }            
-    });
-
-    const body = {
-      'idusuario'   : this.idUsuario,
-      'fechainicio' : fechaInicio,
-      'fechafin'    : fechaFinal,
-    };
-
-
-    this.loginService.listarPedidosAtendidos(body)
-    .subscribe( (r : any) => {
-
-      if( r.message === "exito" ){
-
-        this.listaPedidoAtendido  = r.result;
-      }
-
-    }, () => { });
-  }
+  ) {    }  
 
   seleccionarFechas() {
 
     this.modal.open( FiltrarFechaPage)
-    .afterClosed()
-    .subscribe( response => { this.listaPedidoAtendido = response; } );
+      .afterClosed()
+      .subscribe( response => { this.listaPedidoAtendido = response; } );
 
   }
 

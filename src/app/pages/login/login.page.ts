@@ -32,22 +32,22 @@ export class LoginPage implements OnInit {
     private router           : Router,
     private dataLocalService : DataLocalService
 
-  ){        
-    
-    this.dataLocalService.getUserLogin().then((x : any) => {
+  ){                
+
+    /* this.dataLocalService.getUserLogin().then((x : any) => {
       if(x.IDUsuario) {
         this.navigateRute()
       }      
-    });
+    }); */
 
-    this.subcribeSalir =  this.platform.backButton.subscribeWithPriority(666666, 
+    /* this.subcribeSalir =  this.platform.backButton.subscribeWithPriority(666666, 
       () => {
           if(this.constructor.name == 'LoginPage') {
             if(window.confirm("Deseas salir de la Aplicacion?")){
               navigator["app"].exitApp();
             }
           }
-      });
+      }); */
     
     this.CrearFormulario(); 
   }
@@ -88,13 +88,12 @@ export class LoginPage implements OnInit {
 
         if( r.message === "exito" ){
 
-          const result = r.result;    
-          
-          /* this.userLogueado = { id: result.IDUsuario, user : result.Usuario, tipousuario : result.TipoUsuario }
-          localStorage.setItem('userLogueado', JSON.stringify(this.userLogueado)); */
-
+          const result = r.result;
           this.userLogueado = result;
-          this.dataLocalService.setUserLogin( this.userLogueado );
+
+          this.evaluarPlataforma();
+          console.log(JSON.stringify(this.userLogueado));
+          
           this.navigateRute();
           this.reset();
           this.Loading = false
@@ -125,6 +124,15 @@ export class LoginPage implements OnInit {
 
   navigateRute(){
     this.router.navigate(['/tabs'],  { replaceUrl: true });
+  }
+
+  evaluarPlataforma() {
+    if (this.platform.is('android') || this.platform.is('ios')) {
+      this.dataLocalService.setUserLogin( this.userLogueado );
+
+    } else {
+      localStorage.setItem('userLogueado', JSON.stringify(this.userLogueado));
+    }
   }
 
 }

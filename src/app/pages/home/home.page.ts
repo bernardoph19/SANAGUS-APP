@@ -5,6 +5,7 @@ import { Pedido } from 'src/app/models/user.model';
 import { ServiciosGeneralesService } from 'src/app/services/serviciosGenerales.service';
 import { ValidadorGeneralService } from 'src/app/services/validadorGeneral.service';
 import { DataLocalService } from 'src/app/services/data-local.service';
+import { Platform, ToastController } from '@ionic/angular';
 
 
 @Component({
@@ -18,12 +19,17 @@ export class HomePage  implements OnInit {
   textoBuscar       = '';
   Loading           : boolean = false;
   idUsuario         : string;
+  message           : string;
+  dataLocal         : any;
+  
 
   constructor(
-    public modal:MatDialog,
-    private loginService: ServiciosGeneralesService,    
-    private validar: ValidadorGeneralService,
-    private dataLocalService : DataLocalService
+    public  modal             : MatDialog,
+    private loginService     : ServiciosGeneralesService,
+    private validar          : ValidadorGeneralService,
+    private dataLocalService : DataLocalService,
+    public  toastController  : ToastController,
+    public  platform         : Platform,
 
   ) { }
 
@@ -35,14 +41,14 @@ export class HomePage  implements OnInit {
 
     this.Loading = true;
 
-    this.dataLocalService.getUserLogin().then( (x : any) => {
+    /* this.dataLocalService.getUserLogin().then( (x : any) => {
       if(x) {
         this.idUsuario = x.IDUsuario;
       }            
-    });
-
-    /* const userlogueado = JSON.parse(localStorage.getItem('userLogueado')); */
-    const rep = {  'idusuario' : this.idUsuario };
+    }); */    
+        
+    this.evaluarPlataforma();
+    const rep = {  'idusuario' : this.dataLocal.idUsuario };
 
     this.loginService.listarPendientesToday(rep)
       .subscribe( (r : any) => {
@@ -50,14 +56,14 @@ export class HomePage  implements OnInit {
         if( r.message === "exito" ) {
            this.listaPedido  = r.result
            this.Loading = false
-        }        
+        }
 
-      }, () => {
-        this.Loading = false
-      })
-      .add( () => {
-        /* this.Loading = false */
-      })
+      }, (error) => {
+        debugger;
+        this.Loading = false;
+        this.message = error.error.message ?? "Sin conexion al servidor";
+        this.presentToast(this.message);
+      });
       
   }
 
@@ -72,7 +78,12 @@ export class HomePage  implements OnInit {
 
       if( r.message === "Venta entragada" ){ this.loadListPedido(); }
 
-    }, () => {  });
+    }, (error) => { 
+      this.Loading = false;
+      this.message = error.error.message ?? "Sin conexion al servidor";
+      this.presentToast(this.message);
+
+    });
 
   }
 
@@ -88,9 +99,29 @@ export class HomePage  implements OnInit {
     
     this.loadListPedido().finally( () => {
       event.target.complete();
+    });        
+  }
+
+  async presentToast(ms: string) {
+    const toast = await this.toastController.create({
+      message: ms,
+      duration: 3000,
+      cssClass:"background"
     });
-    
-    
+
+    toast.present();
+  }
+
+  evaluarPlataforma() {
+    if (this.platform.is('android') || this.platform.is('ios')) {
+      this.dataLocalService.getUserLogin()
+        .then((x) => {
+          this.dataLocal = x;
+        })
+
+    } else {
+      this.dataLocal = JSON.parse(localStorage.getItem('userLogueado'));
+    }
   }
   
 }
