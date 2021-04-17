@@ -6,6 +6,7 @@ import { ServiciosGeneralesService } from 'src/app/services/serviciosGenerales.s
 import { ValidadorGeneralService } from 'src/app/services/validadorGeneral.service';
 import { DataLocalService } from 'src/app/services/data-local.service';
 import { Platform, ToastController } from '@ionic/angular';
+import { environment } from 'src/environments/environment';
 
 
 @Component({
@@ -34,21 +35,19 @@ export class HomePage  implements OnInit {
   ) { }
 
   ngOnInit() : void {
+    console.log('en el on INIT')
    this.loadListPedido();
   }
 
   async loadListPedido() {
 
+    console.log('ingresando al LOAD PEDIDOS')
     this.Loading = true;
-
-    /* this.dataLocalService.getUserLogin().then( (x : any) => {
-      if(x) {
-        this.idUsuario = x.IDUsuario;
-      }            
-    }); */    
-        
+    
     this.evaluarPlataforma();
-    const rep = {  'idusuario' : this.dataLocal.idUsuario };
+    console.log(JSON.stringify(this.dataLocal.IDUsuario))
+    console.log('antes de realizar la peticion para listar los pendientes')
+    const rep = {  'idusuario' : this.dataLocal.IDUsuario };
 
     this.loginService.listarPendientesToday(rep)
       .subscribe( (r : any) => {
@@ -58,8 +57,7 @@ export class HomePage  implements OnInit {
            this.Loading = false
         }
 
-      }, (error) => {
-        debugger;
+      }, (error) => {        
         this.Loading = false;
         this.message = error.error.message ?? "Sin conexion al servidor";
         this.presentToast(this.message);
@@ -113,7 +111,8 @@ export class HomePage  implements OnInit {
   }
 
   evaluarPlataforma() {
-    if (this.platform.is('android') || this.platform.is('ios')) {
+    //if (this.platform.is('android') || this.platform.is('ios')) {
+    if (environment.browser == false) {
       this.dataLocalService.getUserLogin()
         .then((x) => {
           this.dataLocal = x;

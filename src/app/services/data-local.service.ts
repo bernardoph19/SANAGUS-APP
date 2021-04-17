@@ -13,9 +13,13 @@ export class DataLocalService {
     await this.nativeStorage.setItem('userLogueado', user)
       .then(
         () => {          
-          
+          console.log('guardando en el native storage ');
+          console.log(JSON.stringify(user));
         },
-        error => console.error('Error storing item', error)
+        error => {
+          console.error('Error storing item');
+          console.error(JSON.stringify(error));
+        }
       );
 
   }
@@ -23,7 +27,9 @@ export class DataLocalService {
   getUserLogin () {
     return this.nativeStorage.getItem('userLogueado')
       .then(
-        data => {          
+        data => {
+          console.log('dentro del GET');
+          console.log(JSON.stringify(data));
           return data;
           //return true;
         },

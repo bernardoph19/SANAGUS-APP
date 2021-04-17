@@ -7,6 +7,7 @@ import { ServiciosGeneralesService } from 'src/app/services/serviciosGenerales.s
 import { ValidadorGeneralService } from 'src/app/services/validadorGeneral.service';
 import { Usuario } from 'src/app/models/user.model';
 import { DataLocalService } from 'src/app/services/data-local.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector    : 'app-login',
@@ -34,20 +35,7 @@ export class LoginPage implements OnInit {
 
   ){                
 
-    /* this.dataLocalService.getUserLogin().then((x : any) => {
-      if(x.IDUsuario) {
-        this.navigateRute()
-      }      
-    }); */
-
-    /* this.subcribeSalir =  this.platform.backButton.subscribeWithPriority(666666, 
-      () => {
-          if(this.constructor.name == 'LoginPage') {
-            if(window.confirm("Deseas salir de la Aplicacion?")){
-              navigator["app"].exitApp();
-            }
-          }
-      }); */
+    
     
     this.CrearFormulario(); 
   }
@@ -91,9 +79,8 @@ export class LoginPage implements OnInit {
           const result = r.result;
           this.userLogueado = result;
 
-          this.evaluarPlataforma();
-          console.log(JSON.stringify(this.userLogueado));
-          
+          this.evaluarPlataforma();          
+
           this.navigateRute();
           this.reset();
           this.Loading = false
@@ -127,10 +114,13 @@ export class LoginPage implements OnInit {
   }
 
   evaluarPlataforma() {
-    if (this.platform.is('android') || this.platform.is('ios')) {
+    //if (this.platform.is('android') || this.platform.is('ios')) {
+    if (environment.browser == false) {
+      console.log('dentro de Data Local Service')
       this.dataLocalService.setUserLogin( this.userLogueado );
 
     } else {
+      console.log('dentro de Local Storage')
       localStorage.setItem('userLogueado', JSON.stringify(this.userLogueado));
     }
   }

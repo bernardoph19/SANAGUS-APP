@@ -14,6 +14,7 @@
             [matDatepicker]="fechaemision"
             required
             formControlName="fechaInicio"
+            readonly
         >
         <mat-datepicker #fechaemision> </mat-datepicker>
         <button type="button" (click)="fechaemision.open()"
@@ -34,6 +35,7 @@
             [matDatepicker]="fechafin"
             required
             formControlName="fechaFinal"
+            readonly
         >
         <mat-datepicker #fechafin> </mat-datepicker>
         <button type="button" (click)="fechafin.open()"

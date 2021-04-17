@@ -8,6 +8,7 @@ import { ValidadorGeneralService } from 'src/app/services/validadorGeneral.servi
 import { ServiciosGeneralesService } from 'src/app/services/serviciosGenerales.service';
 import { Platform } from '@ionic/angular';
 import { DataLocalService } from 'src/app/services/data-local.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-filtrar-fecha',
@@ -89,7 +90,8 @@ export class FiltrarFechaPage implements OnInit {
   }
 
   evaluarPlataforma() {
-    if (this.platform.is('android') || this.platform.is('ios')) {
+    //if (this.platform.is('android') || this.platform.is('ios')) {
+    if (environment.browser == false) {
       this.dataLocalService.getUserLogin()
         .then((x) => {
           this.dataLocal = x;
