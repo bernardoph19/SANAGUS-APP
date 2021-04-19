@@ -70,7 +70,7 @@ export class FiltrarFechaPage implements OnInit {
   async listPedidosAtendidos( fechaInicio : string, fechaFin : string) {
 
     this.loadingc();
-    this.evaluarPlataforma();    
+    await this.evaluarPlataforma();
 
     const body = {
       //idusuario   : userlogueado.id,
@@ -89,10 +89,10 @@ export class FiltrarFechaPage implements OnInit {
 
   }
 
-  evaluarPlataforma() {
+  async evaluarPlataforma() {
     //if (this.platform.is('android') || this.platform.is('ios')) {
     if (environment.browser == false) {
-      this.dataLocalService.getUserLogin()
+      await this.dataLocalService.getUserLogin()
         .then((x) => {
           this.dataLocal = x;
         })

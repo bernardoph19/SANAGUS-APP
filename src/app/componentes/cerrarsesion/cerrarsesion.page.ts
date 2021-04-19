@@ -33,11 +33,11 @@ export class CerrarsesionPage implements OnInit {
     this.cerrarsesion =!this.cerrarsesion;
   }
 
-  evaluarPlataforma() {
+  async evaluarPlataforma() {
 
     //if (this.platform.is('android') || this.platform.is('ios')) {
     if (environment.browser == false) {
-      this.dataLocalService.clearUsuerLogin();
+      await this.dataLocalService.clearUsuerLogin();
 
     } else {
       localStorage.removeItem('userLogueado'); 

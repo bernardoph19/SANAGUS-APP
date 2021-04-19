@@ -34,19 +34,15 @@ export class HomePage  implements OnInit {
 
   ) { }
 
-  ngOnInit() : void {
-    console.log('en el on INIT')
+  ngOnInit() : void {    
    this.loadListPedido();
   }
 
   async loadListPedido() {
-
-    console.log('ingresando al LOAD PEDIDOS')
+    
     this.Loading = true;
     
-    this.evaluarPlataforma();
-    console.log(JSON.stringify(this.dataLocal.IDUsuario))
-    console.log('antes de realizar la peticion para listar los pendientes')
+    await this.evaluarPlataforma();
     const rep = {  'idusuario' : this.dataLocal.IDUsuario };
 
     this.loginService.listarPendientesToday(rep)
@@ -110,12 +106,12 @@ export class HomePage  implements OnInit {
     toast.present();
   }
 
-  evaluarPlataforma() {
+  async evaluarPlataforma() {
     //if (this.platform.is('android') || this.platform.is('ios')) {
     if (environment.browser == false) {
-      this.dataLocalService.getUserLogin()
+      await this.dataLocalService.getUserLogin()
         .then((x) => {
-          this.dataLocal = x;
+          return this.dataLocal = x;
         })
 
     } else {

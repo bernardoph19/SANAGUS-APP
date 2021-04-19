@@ -33,12 +33,7 @@ export class LoginPage implements OnInit {
     private router           : Router,
     private dataLocalService : DataLocalService
 
-  ){                
-
-    
-    
-    this.CrearFormulario(); 
-  }
+  ){ this.CrearFormulario(); }
 
   
   ngOnInit() {}
@@ -72,14 +67,14 @@ export class LoginPage implements OnInit {
 
     this.loginService.postInicioSesion( body )
     
-      .subscribe ( ( r : any )  =>   {
+      .subscribe ( async ( r : any )  =>   {
 
         if( r.message === "exito" ){
 
           const result = r.result;
           this.userLogueado = result;
 
-          this.evaluarPlataforma();          
+          await this.evaluarPlataforma();          
 
           this.navigateRute();
           this.reset();
@@ -113,16 +108,44 @@ export class LoginPage implements OnInit {
     this.router.navigate(['/tabs'],  { replaceUrl: true });
   }
 
-  evaluarPlataforma() {
+  async evaluarPlataforma() {
     //if (this.platform.is('android') || this.platform.is('ios')) {
     if (environment.browser == false) {
       console.log('dentro de Data Local Service')
-      this.dataLocalService.setUserLogin( this.userLogueado );
+      await this.dataLocalService.setUserLogin( this.userLogueado );
 
     } else {
       console.log('dentro de Local Storage')
       localStorage.setItem('userLogueado', JSON.stringify(this.userLogueado));
     }
+  }
+
+  async recordarLogin() {
+    if (!environment.browser) {
+        
+      await this.dataLocalService.getUserLogin().then((x : any) => {
+        console.log('Recordardo el Login del Usuario');
+        console.log(JSON.stringify(x));
+        
+        if(x) {                    
+          this.router.navigate(['/tabs/pendientes']);
+          return true;
+
+        } else { return false; }
+      });
+
+    
+    } else {
+
+      const userlogeado = JSON.parse(localStorage.getItem('userLogueado'));
+
+      if( userlogeado && userlogeado !== null) {
+        this.router.navigate(['/tabs/pendientes']);
+        return true
+        
+      } else { return false; }
+      
+    } 
   }
 
 }

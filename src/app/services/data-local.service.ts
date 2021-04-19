@@ -24,8 +24,8 @@ export class DataLocalService {
 
   }
 
-  getUserLogin () {
-    return this.nativeStorage.getItem('userLogueado')
+  async getUserLogin () {
+    await this.nativeStorage.getItem('userLogueado')
       .then(
         data => {
           console.log('dentro del GET');
@@ -42,7 +42,7 @@ export class DataLocalService {
   }
 
   async clearUsuerLogin () {
-    return this.nativeStorage.clear().then(() => {
+    await this.nativeStorage.clear().then(() => {
       return true;
     })
 

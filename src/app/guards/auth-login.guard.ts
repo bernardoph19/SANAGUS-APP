@@ -17,11 +17,11 @@ import { DataLocalService } from '../services/data-local.service';
 
     if (!environment.browser) {
         
-      this.dataLocalService.getUserLogin().then((x : any) => {
+      await this.dataLocalService.getUserLogin().then((x : any) => {
         console.log(JSON.stringify(x));
         
         if(x) {
-          console.log('dentro de if existe X');
+                    
           this.router.navigate(['/tabs/pendientes']);
           return true;
         } else {

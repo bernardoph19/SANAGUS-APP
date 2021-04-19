@@ -19,9 +19,9 @@ export class HistorialPage implements OnInit {
   idUsuario           : string;
 
   constructor(
-    public  modal : MatDialog,    
-    private loginService: ServiciosGeneralesService,
-    private validar: ValidadorGeneralService,    
+    public  modal         : MatDialog,    
+    private loginService  : ServiciosGeneralesService,
+    private validar       : ValidadorGeneralService,    
 
   ) {    }  
 
